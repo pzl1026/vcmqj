@@ -1,0 +1,41 @@
+{
+  "name": "wp-vue",
+  "version": "1.0.0",
+  "description": "vue构建",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch",
+    "build": "webpack",
+    "start": "webpack-dev-server --open",
+    "server": "node server.js",
+    "prod": "webpack --config webpack.prod.js",
+    "dev": "webpack-dev-server --open --config webpack.dev.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pzl1026/wp-vue.git"
+  },
+  "sideEffects": ["*.css"],
+  "author": "pzl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pzl1026/wp-vue/issues"
+  },
+  "homepage": "https://github.com/pzl1026/wp-vue#readme",
+  "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^3.2.0",
+    "express": "^4.17.1",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^1.0.0",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-middleware": "^3.7.1",
+    "webpack-dev-server": "^3.8.1",
+    "webpack-manifest-plugin": "^2.1.1",
+    "webpack-merge": "^4.2.2"
+  }
+}

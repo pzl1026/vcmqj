@@ -4,7 +4,7 @@ vue构建
 ## 所遇到的坑：
 1. css代码分离时，所安装的extract-text-webpack-plugin版本与webpack版本不兼容，可能会报错，只要安装@next就可以了；<br/>
 2. tree-shaking: package里所设置的"sideEffects": false设置为"sideEffects": ["*.css"]，不然css不能实现代码分割打包；<br/>
-3. CommonsChunkPlugin已移除，使用splitChunks，与entry同级，配置如下：
+3. CommonsChunkPlugin已移除，使用splitChunks，与entry同级，配置如下：<br/>
 (```)
     optimization: {
         runtimeChunk: "single",

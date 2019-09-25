@@ -10,13 +10,16 @@
     "start": "webpack-dev-server --open",
     "server": "node server.js",
     "prod": "webpack --config webpack.prod.js",
+    "http-server": "http-server dist",
     "dev": "webpack-dev-server --open --config webpack.dev.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pzl1026/wp-vue.git"
   },
-  "sideEffects": ["*.css"],
+  "sideEffects": [
+    "*.css"
+  ],
   "author": "pzl",
   "license": "ISC",
   "bugs": {
@@ -29,13 +32,21 @@
     "express": "^4.17.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "html-webpack-plugin": "^3.2.0",
+    "http-server": "^0.11.1",
+    "lodash": "^4.17.15",
     "style-loader": "^1.0.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.40.2",
+    "webpack-bundle-analyzer": "^3.5.1",
     "webpack-cli": "^3.3.9",
     "webpack-dev-middleware": "^3.7.1",
     "webpack-dev-server": "^3.8.1",
     "webpack-manifest-plugin": "^2.1.1",
-    "webpack-merge": "^4.2.2"
+    "webpack-merge": "^4.2.2",
+    "workbox-webpack-plugin": "^4.3.1"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "whatwg-fetch": "^3.0.0"
   }
 }

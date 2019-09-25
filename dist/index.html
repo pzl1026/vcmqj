@@ -3,6 +3,22 @@
   <head>
     <meta charset="UTF-8">
     <title>wp-vue</title>
-  <link href="styles.css?ed400f459ed7d6569d69" rel="stylesheet"></head>
+  <link href="styles.css?485e03b05aaa91107bcf" rel="stylesheet"></head>
   <body>
-</html><script type="text/javascript" src="app.ed400f459ed7d6569d69.js?ed400f459ed7d6569d69"></script>
+         <script>
+          //  判断浏览器是否需要polyfills
+             var modernBrowser = (
+               'fetch' in window &&
+               'assign' in Object
+             );
+      
+             if ( !modernBrowser ) {
+               var scriptElement = document.createElement('script');
+      
+               scriptElement.async = false;
+               scriptElement.src = '/polyfills.bundle.js';
+               document.head.appendChild(scriptElement);
+             }
+           </script>
+  <script type="text/javascript" src="runtime.bundle.js?485e03b05aaa91107bcf"></script><script type="text/javascript" src="commons.app.polyfills.bundle.js?485e03b05aaa91107bcf"></script><script type="text/javascript" src="vendors.polyfills.bundle.js?485e03b05aaa91107bcf"></script><script type="text/javascript" src="polyfills.bundle.js?485e03b05aaa91107bcf"></script><script type="text/javascript" src="vendors.app.bundle.js?485e03b05aaa91107bcf"></script><script type="text/javascript" src="app.bundle.js?485e03b05aaa91107bcf"></script></body>
+</html>

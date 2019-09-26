@@ -25,8 +25,9 @@ module.exports = {
             template: './src/index.html' 
         }),
         new webpack.NamedModulesPlugin(),
-        new webpack.HotModuleReplacementPlugin()
-    ],
+        new webpack.HotModuleReplacementPlugin(),
+    
+    ], 
     output: {
       filename: '[name].[hash].js',
       path: path.resolve(__dirname, 'dist'),

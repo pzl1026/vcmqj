@@ -11,7 +11,8 @@
     "server": "node server.js",
     "prod": "webpack --config webpack.prod.js",
     "http-server": "http-server dist",
-    "dev": "webpack-dev-server --open --config webpack.dev.js"
+    "dev": "webpack-dev-server --open --config webpack.dev.js",
+    "build:dll": "webpack --config webpack.dll.config.js --mode production"
   },
   "repository": {
     "type": "git",

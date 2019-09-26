@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[0],{"./node_modules/webpack/buildin/global.js":function(n,o){var t;t=function(){return this}();try{t=t||new Function("return this")()}catch(n){"object"==typeof window&&(t=window)}n.exports=t}}]);
-//# sourceMappingURL=commons.app.polyfills.bundle.js.map

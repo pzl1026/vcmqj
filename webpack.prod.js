@@ -1,12 +1,13 @@
  const merge = require('webpack-merge');
+ const path = require("path");
  const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
  const common = require('./webpack.common.js');
  const webpack = require('webpack');
  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
- const WorkboxPlugin = require('workbox-webpack-plugin'); //实现PWA
+//  const WorkboxPlugin = require('workbox-webpack-plugin'); //实现PWA
 
  module.exports = merge(common, {
-    devtool: 'source-map',
+    // devtool: 'source-map',
     mode: "production",
     // output: {
     //     filename: '[name].[hash].js',
@@ -66,11 +67,11 @@
             'process.env.NODE_ENV': JSON.stringify('production')
         }),
         // new BundleAnalyzerPlugin(),
-        new WorkboxPlugin.GenerateSW({
-            // 这些选项帮助 ServiceWorkers 快速启用
-            // 不允许遗留任何“旧的” ServiceWorkers
-            clientsClaim: true,
-            skipWaiting: true
-        })
+        // new WorkboxPlugin.GenerateSW({
+        //     // 这些选项帮助 ServiceWorkers 快速启用
+        //     // 不允许遗留任何“旧的” ServiceWorkers
+        //     clientsClaim: true,
+        //     skipWaiting: true
+        // })
     ]
  });

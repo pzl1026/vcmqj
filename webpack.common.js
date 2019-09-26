@@ -6,10 +6,13 @@
 
  module.exports = {
     entry: {
-        polyfills: './src/polyfills.js',
-        app: './src/index.js',
+        polyfills: ['./src/polyfills.js'],
+        app: ['./src/index.js'],
         // print: './src/print.js'
     },
+    resolve: {
+		extensions: [".js", ".jsx"]
+	},
     module: {
         rules: [
             {
@@ -32,10 +35,17 @@
         new ExtractTextPlugin("styles.css"),
         new webpack.ProvidePlugin({
             _: 'lodash'
+        }),
+        new webpack.DllReferencePlugin({
+            context: __dirname,
+            manifest: require('./public/dll/lodash.manifest.json'),
+            name: './public/dll/lodash.dll.js',
+            scope: "xyz",
+            sourceType: "commonjs2"
         })
     ],
     output: {
         filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'public/dist'),
     }
  };

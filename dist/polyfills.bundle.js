@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[3],{"./src/polyfills.js":function(s,l,o){"use strict";o.r(l),o("./node_modules/babel-polyfill/lib/index.js"),o("./node_modules/whatwg-fetch/fetch.js")}},[["./src/polyfills.js",1,0,5]]]);
-//# sourceMappingURL=polyfills.bundle.js.map

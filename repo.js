@@ -5,26 +5,40 @@ const path = require("path")
 const fs = require('fs');   //引入node的path模块
 const inquirer = require('inquirer');
 const promptList = require('./promptList.config');
+const pa = process.argv;
+global.config = {};
 
-fs.exists(path.resolve('./test'), function(exists) {
-    if (exists) {
-        inquirer.prompt(promptList.projectCheckConf).then(answers => {
-            if (answers.isProjectCreate) {
-                createProject();
-            } else {
-                process.exit();
-            }
-        });
-    } else {
-        createProject();
-    }
+inquirer.prompt(promptList.frameConf).then(answers => {
+    global.config.frame = answers.frame;
+    readyDownloadDir(answers.frame);
 });
 
-function createProject() {
-    const spinner = ora('开始创建新的目录').start();
+// 开始准备下载
+function readyDownloadDir (frame) {
+    fs.exists(path.resolve(`./${pa[pa.length - 1]}`), function(exists) {
+        if (exists) {
+            inquirer.prompt(promptList.projectCheckConf).then(answers => {
+                if (answers.isProjectCreate) {
+                    createProject(frame);
+                } else {
+                    process.exit();
+                }
+            });
+        } else {
+            createProject(frame);
+        }
+    });
+}
+
+// 创建项目
+function createProject(frame) {
+    const tempDir = frame === 'vue' ? 'github:pzl1026/temp-dir' : '';
+    const spinner = ora(chalk.yellow('Create start')).start();
+
     spinner.color = 'blue';
     spinner.text = 'Creating project directory...';
-    download('github:pzl1026/temp-dir', 'test/tmp', function (err) {
+
+    download(tempDir, pa[pa.length - 1], function (err) {
         spinner.text = chalk.blue('Project directory created successfully');
         spinner.succeed();
         spinner.stop();

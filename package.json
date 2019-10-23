@@ -12,7 +12,8 @@
     "prod": "webpack --config webpack.prod.js",
     "http-server": "http-server dist",
     "dev": "webpack-dev-server --open --config webpack.dev.js",
-    "build:dll": "webpack --config webpack.dll.config.js --mode production"
+    "build:dll": "webpack --config webpack.dll.config.js --mode production",
+    "start:dll": "npm run build:dll && npm run server"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,9 @@
   "bugs": {
     "url": "https://github.com/pzl1026/wp-vue/issues"
   },
+  "bin": {
+    "wp-vue": "bin/index.js"
+  },
   "homepage": "https://github.com/pzl1026/wp-vue#readme",
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",
@@ -35,7 +39,10 @@
     "html-webpack-plugin": "^3.2.0",
     "http-server": "^0.11.1",
     "lodash": "^4.17.15",
+    "mini-css-extract-plugin": "^0.8.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
     "style-loader": "^1.0.0",
+    "terser-webpack-plugin": "^2.1.3",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.40.2",
     "webpack-bundle-analyzer": "^3.5.1",
@@ -48,6 +55,10 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "chalk": "^2.4.2",
+    "download-git-repo": "^3.0.2",
+    "inquirer": "^7.0.0",
+    "ora": "^4.0.2",
     "whatwg-fetch": "^3.0.0"
   }
 }

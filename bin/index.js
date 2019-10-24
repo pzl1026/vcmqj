@@ -6,16 +6,25 @@ const path = require('path');
 
 switch(argv) {
     case 'dev':
-        require('../server');
+        const c1 = spawn(
+            process.platform === "win32" ? "npm.cmd" : "npm", 
+            ['run', 'start:dll'],
+            {
+                stdio: 'inherit',
+                cwd: path.resolve(__dirname, '..')
+            }
+        );
         break;
-    case "build":
-        const compile = spawn(
+    case 'build':
+        const c2 = spawn(
             process.platform === "win32" ? "npm.cmd" : "npm", 
             ['run', 'prod'],
             {
-                stdio: 'inherit',cwd: path.resolve(__dirname, '..')
+                stdio: 'inherit',
+                cwd: path.resolve(__dirname, '..')
             }
         );
+    case 'build:dll':
         break;
     default: 
         require('../repo');

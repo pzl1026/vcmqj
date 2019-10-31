@@ -13,7 +13,8 @@
     "http-server": "http-server dist",
     "dev": "webpack-dev-server --open --config webpack.dev.js",
     "build:dll": "webpack --config webpack.dll.config.js --mode production",
-    "start:dll": "npm run build:dll && npm run server"
+    "start:dll": "npm run build:dll && npm run server",
+    "prod:dll": "npm run build:dll && npm run prod"
   },
   "repository": {
     "type": "git",

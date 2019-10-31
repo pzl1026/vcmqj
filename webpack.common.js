@@ -6,11 +6,12 @@
  const TerserJSPlugin = require('terser-webpack-plugin');
  const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
  const webpack = require('webpack');
- 
+const CWD = process.argv[process.argv.length - 1];
+
 module.exports = {
     entry: {
-        polyfills: ['./src/polyfills.js'],
-        app: ['./src/index.js'],
+        polyfills: [path.join(CWD, '/src/polyfills.js')],
+        app: [path.join(CWD,'/src/index.js')],
         // print: './src/print.js'
     },
     resolve: {
@@ -70,6 +71,6 @@ module.exports = {
     ],
     output: {
         filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'public/dist'),
+        path: path.join(CWD, 'public/dist'),
     }
  };

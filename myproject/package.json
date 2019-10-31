@@ -1,0 +1,19 @@
+{
+  "name": "temp-dir",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pzl1026/temp-dir.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pzl1026/temp-dir/issues"
+  },
+  "homepage": "https://github.com/pzl1026/temp-dir#readme"
+}

@@ -10,10 +10,10 @@ global.config = {};
 //     console.log(answers); // 返回的结果
 // });
 // const current_path = require(process.current_path);
-console.log(process.argv, 'process.argv22')
+// console.log(process.argv, 'process.argv22')
 // global.config.frame = answers.frame;
 const config = require('./webpack.dev.js');
-console.log(config.module.rules, 'config')
+// console.log(config.module.rules, 'config')
 const compiler = webpack(config);
 
 const options = {

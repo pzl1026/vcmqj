@@ -5,7 +5,7 @@
  const webpack = require('webpack');
  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 //  const WorkboxPlugin = require('workbox-webpack-plugin'); //实现PWA
-
+console.log(2222)
  module.exports = merge(common, {
     // devtool: 'source-map',
     mode: "production",

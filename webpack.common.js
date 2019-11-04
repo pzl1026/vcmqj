@@ -6,8 +6,8 @@
  const TerserJSPlugin = require('terser-webpack-plugin');
  const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
  const webpack = require('webpack');
- const CWD = process.argv[process.argv.length - 1];
-
+ const CWD= process.cwd();
+console.log(path.join(CWD, './public2/dist'), 'CWD')
 module.exports = {
     entry: {
         polyfills: [
@@ -15,7 +15,7 @@ module.exports = {
             // './src/polyfills.js'
         ],
         app: [
-            path.join(CWD,'./src/index.js')
+            path.join(CWD, './src/index.js')
             // './src/index.js'
         ],
         // print: './src/print.js'
@@ -77,6 +77,7 @@ module.exports = {
     ],
     output: {
         filename: '[name].bundle.js',
-        path: path.resolve(__dirname, './public2/dist') //这边目录不对
+        path: path.join(CWD, './public2/dist') //这边目录不对
+        // path:  'e:\\public2\\dist'
     }
  };

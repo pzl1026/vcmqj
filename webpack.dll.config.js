@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-
+console.log(444)
 module.exports = {
     entry: {
         //    polyfills: ['./src/polyfills.js'],

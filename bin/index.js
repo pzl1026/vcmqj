@@ -11,14 +11,6 @@ const CWD= process.cwd();
 
 switch(argv) {
     case 'dev':
-        // const c1 = spawn(
-        //     process.platform === "win32" ? "npm.cmd" : "npm", 
-        //     ['run', 'start:dll', CWD],
-        //     {
-        //         stdio: 'inherit',
-        //         cwd: path.resolve(__dirname)
-        //     }
-        // );
         webpack(require('../webpack.dll.config'),  (err, stats) => {
             if (err) throw err;
 
@@ -30,29 +22,47 @@ switch(argv) {
         });
         break;
     case 'prod':
-        const c2 = spawn(
-            process.platform === "win32" ? "npm.cmd" : "npm", 
-            ['run', 'prod:dll'],
-            {
-                stdio: 'inherit',
-                cwd: path.resolve(__dirname)
-            }
-        );
+        // const c2 = spawn(
+        //     process.platform === "win32" ? "npm.cmd" : "npm", 
+        //     ['run', 'prod:dll'],
+        //     {
+        //         stdio: 'inherit',
+        //         cwd: path.resolve(__dirname)
+        //     }
+        // );
         // webpack(require('../webpack.dll.config'));
-        // const configs = require('../webpack.prod');
-        // console.log(configs, 'config2')
-        // const compiler = webpack(configs, (err, stats) => {
-        //     console.log(stats.hasErrors(), 'err')
-        //     console.log(stats.hasWarnings(), 'eee')
-        // });
-        // const watching = compiler.watch({
-        //     // watchOptions 示例
-        //     aggregateTimeout: 300,
-        //     poll: undefined
-        //   }, (err, stats) => {
-        //     // 在这里打印 watch/build 结果...
-        //     console.log(stats, 'statts');
-        //   });
+        const configs = require('../webpack.prod');
+        const compiler = webpack(configs, (err, stats) => {
+
+            if (err) {
+                console.error(err.stack || err);
+                if (err.details) {
+                  console.error(err.details);
+                }
+                process.exit(1);
+                return;
+              }
+            
+              const info = stats.toJson();
+            
+              if (stats.hasErrors()) {
+                console.error(info.errors);
+                process.exit(1);
+              }
+            
+              if (stats.hasWarnings()) {
+                console.warn(info.warnings);
+                process.exit(1);
+              }
+            process.stdout.write(stats.toString({
+                colors: true,
+                modules: false,
+                children: false,
+                chunks: false,
+                chunkModules: false
+            }) + '\n\n')
+            console.log(chalk.cyan('  Build complete.\n'));
+        });
         break;
     default: 
         require('../repo');

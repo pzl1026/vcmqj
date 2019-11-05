@@ -1,11 +1,12 @@
  const merge = require('webpack-merge');
  const common = require('./webpack.common.js');
+ const vueConfigs = require('./webpack.vue.config');
  const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
- module.exports = merge(common, {
+ module.exports = merge(vueConfigs, {
     devtool: 'inline-source-map',
     devServer: {
         contentBase: './dist',

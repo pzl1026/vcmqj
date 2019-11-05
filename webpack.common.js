@@ -6,22 +6,22 @@
  const TerserJSPlugin = require('terser-webpack-plugin');
  const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
  const webpack = require('webpack');
- const CWD= process.cwd();
-console.log(path.join(CWD, './public2/dist'), 'CWD')
-module.exports = {
+ const CWD = process.cwd();
+
+ module.exports = {
     entry: {
-        polyfills: [
-            path.join(CWD, './src/polyfills.js')
-            // './src/polyfills.js'
-        ],
+        // polyfills: [
+        //     path.join(CWD, './src/polyfills.js')
+        // ],
         app: [
             path.join(CWD, './src/index.js')
-            // './src/index.js'
         ],
-        // print: './src/print.js'
     },
     resolve: {
-		extensions: [".js", ".jsx"]
+        extensions: [".js", ".jsx"],
+        alias: {
+            'vue$': 'vue/dist/vue.esm.js'
+        }
 	},
     module: {
         rules: [
@@ -46,7 +46,33 @@ module.exports = {
                     },
                     'css-loader',
                   ],
-            }
+            },
+            {
+                test: /\.js$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/  
+            },
+            {
+                test: /\.(png|jpg|gif)$/,
+                loader: 'url-loader',
+                query: {
+                    // 把较小的图片转换成base64的字符串内嵌在生成的js文件里
+                    limit: 10000,
+                    // 路径要与当前配置文件下的publicPath相结合
+                    name:'../img/[name].[ext]?[hash:7]'
+                }
+            },
+            // 加载图标
+            {
+                test: /\.(eot|woff|woff2|svg|ttf)([\?]?.*)$/,
+                loader: 'file-loader',
+                query: {               
+                    // 把较小的图标转换成base64的字符串内嵌在生成的js文件里    
+                    limit: 10000,
+                    name:'../fonts/[name].[ext]?[hash:7]',
+                    prefix:'font'
+                }
+            }, 
         ]
     },
     optimization: {
@@ -57,7 +83,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             hash: true,
             title: 'Output Management',
-            template: './src/index.html' 
+            template: path.join(CWD, './index.html')
         }),
         new ExtractTextPlugin("styles.css"),
         new webpack.ProvidePlugin({

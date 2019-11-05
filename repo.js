@@ -32,7 +32,7 @@ function readyDownloadDir (frame) {
 
 // 创建项目
 function createProject(frame) {
-    const tempDir = frame === 'vue' ? 'github:pzl1026/temp-dir' : '';
+    const tempDir = frame === 'vue' ? 'github:pzl1026/vue-temp-pro' : 'github:pzl1026/react-temp-pro';
     const spinner = ora(chalk.yellow('Create start')).start();
 
     spinner.color = 'blue';

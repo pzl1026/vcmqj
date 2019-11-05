@@ -14,6 +14,7 @@ global.config = {};
 // global.config.frame = answers.frame;
 const config = require('./webpack.dev.js');
 // console.log(config.module.rules, 'config')
+// console.log(config.module.rules, 'config.module.rules')
 const compiler = webpack(config);
 
 const options = {
@@ -31,7 +32,7 @@ webpackDevServer.addDevServerEntrypoints(config, options);
 const server = new webpackDevServer(compiler, options);
 
 // Serve the files on port 3000.
-server.listen(3000, function () {
+server.listen(8080, function () {
   console.log('Example app listening on port 3000!\n');
 });
 

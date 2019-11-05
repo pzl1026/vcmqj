@@ -2,11 +2,12 @@
  const path = require("path");
  const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
  const common = require('./webpack.common.js');
+ const vueConfigs = require('./webpack.vue.config');
  const webpack = require('webpack');
  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 //  const WorkboxPlugin = require('workbox-webpack-plugin'); //实现PWA
-console.log(2222)
- module.exports = merge(common, {
+
+module.exports = merge(vueConfigs, {
     // devtool: 'source-map',
     mode: "production",
     // output: {

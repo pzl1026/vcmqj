@@ -32,6 +32,7 @@ switch(argv) {
         // );
         // webpack(require('../webpack.dll.config'));
         const configs = require('../webpack.prod');
+        console.log(configs.module.rules, 'config.module.rules')
         const compiler = webpack(configs, (err, stats) => {
 
             if (err) {

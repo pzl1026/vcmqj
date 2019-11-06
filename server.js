@@ -1,21 +1,15 @@
-// const express = require('express');
 const webpack = require('webpack');
+const path = require("path");
 const webpackDevServer = require('webpack-dev-server');
-// const inquirer = require('inquirer');
-// const promptList = require('./promptList.config');
 const fs = require("fs");
 global.config = {};
 
-// inquirer.prompt(promptList.frameConf).then(answers => {
-//     console.log(answers); // 返回的结果
-// });
-// const current_path = require(process.current_path);
-// console.log(process.argv, 'process.argv22')
-// global.config.frame = answers.frame;
 const config = require('./webpack.dev.js');
-// console.log(config.module.rules, 'config')
-// console.log(config.module.rules, 'config.module.rules')
+
 const compiler = webpack(config);
+const conf = require('./conf');
+const CWD= process.cwd();
+const mockFiles = conf.mockFiles;
 
 const options = {
     contentBase: './dist',
@@ -30,7 +24,13 @@ const options = {
       ignored: /node_modules/,
       aggregateTimeout: 300,
       poll: 1000
-    }
+    },
+    before(app){
+      mockFiles && mockFiles.forEach((item) => {
+        apiMocker(app, path.resolve(CWD, `./mock/${item}.js`))
+      });
+    },
+    ...conf.devServer
 };
 
 // Tell express to use the webpack-dev-middleware and use the webpack.config.js

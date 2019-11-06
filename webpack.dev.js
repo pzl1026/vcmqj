@@ -5,6 +5,7 @@
 const ManifestPlugin = require('webpack-manifest-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const config = require('./conf');
 
  module.exports = merge(vueConfigs, {
     devtool: 'inline-source-map',
@@ -21,6 +22,9 @@ const webpack = require('webpack');
     plugins: [
         new ManifestPlugin(),
         new webpack.NamedModulesPlugin(),
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.DefinePlugin({
+            MOCK: config.mock || true
+        })
     ],
 });

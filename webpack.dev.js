@@ -8,10 +8,15 @@ const webpack = require('webpack');
 
  module.exports = merge(vueConfigs, {
     devtool: 'inline-source-map',
-    devServer: {
-        contentBase: './dist',
-        hot: true
-    },
+    // devServer: {
+    //     contentBase: './dist',
+    //     hot: true,
+    //     compress: true,
+    //     historyApiFallback: true,
+    //     open: true,
+    //     overlay: true,
+    //     progress: true
+    // },
     mode: 'development',
     plugins: [
         new ManifestPlugin(),

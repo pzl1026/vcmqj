@@ -20,7 +20,17 @@ const compiler = webpack(config);
 const options = {
     contentBase: './dist',
     hot: true,
-    host: 'localhost'
+    host: 'localhost',
+    compress: true,
+    historyApiFallback: true,
+    open: true,
+    overlay: true,
+    progress: true,
+    watchOptions: {
+      ignored: /node_modules/,
+      aggregateTimeout: 300,
+      poll: 1000
+    }
 };
 
 // Tell express to use the webpack-dev-middleware and use the webpack.config.js

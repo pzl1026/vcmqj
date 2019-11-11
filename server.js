@@ -1,15 +1,13 @@
 const webpack = require('webpack');
 const path = require("path");
 const webpackDevServer = require('webpack-dev-server');
+const apiMocker = require('webpack-api-mocker');
 const fs = require("fs");
-global.config = {};
-
 const config = require('./webpack.dev.js');
-
 const compiler = webpack(config);
 const conf = require('./conf');
 const CWD= process.cwd();
-const mockFiles = conf.mockFiles;
+const mockFiles = fs.readdirSync(path.resolve(CWD, './mock'));
 
 const options = {
     contentBase: './dist',
@@ -27,7 +25,7 @@ const options = {
     },
     before(app){
       mockFiles && mockFiles.forEach((item) => {
-        apiMocker(app, path.resolve(CWD, `./mock/${item}.js`))
+        apiMocker(app, path.resolve(CWD, `./mock/${item}`))
       });
     },
     ...conf.devServer

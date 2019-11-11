@@ -10,7 +10,7 @@ const CWD= process.cwd();
 const program = require('./program');
 const  po = program.opts();
 
-if (program.dev) {
+if (program.devConf) {
     global.confFile = po.devConf;
     webpack(require('../webpack.dll.config'),  (err, stats) => {
         if (err) throw err;
@@ -24,7 +24,7 @@ if (program.dev) {
 };
 
 
-if (program.build) {
+if (program.buildConf) {
     const configs = require('../webpack.prod');
     const compiler = webpack(configs, (err, stats) => {
 
@@ -62,8 +62,4 @@ if (program.build) {
 if (program.create) {
     global.projectName = program.projectName || 'myproject';
     require('../repo');
-}
-
-if (program.version) {
-    console.log(111);
 }

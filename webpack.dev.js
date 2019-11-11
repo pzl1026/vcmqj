@@ -5,7 +5,7 @@
 const ManifestPlugin = require('webpack-manifest-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
-const config = require('./conf');
+const config = require('./bin/conf');
 
  module.exports = merge(vueConfigs, {
     devtool: 'inline-source-map',

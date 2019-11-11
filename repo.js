@@ -7,6 +7,8 @@ const inquirer = require('inquirer');
 const promptList = require('./promptList.config');
 const pa = process.argv;
 global.config = {};
+// const projectName = pa[pa.length - 1] || 'myproject';
+const projectName = global.projectName;
 
 inquirer.prompt(promptList.frameConf).then(answers => {
     global.config.frame = answers.frame;
@@ -15,7 +17,7 @@ inquirer.prompt(promptList.frameConf).then(answers => {
 
 // 开始准备下载
 function readyDownloadDir (frame) {
-    fs.exists(path.resolve(`./${pa[pa.length - 1]}`), function(exists) {
+    fs.exists(path.resolve(`./${projectName}`), function(exists) {
         if (exists) {
             inquirer.prompt(promptList.projectCheckConf).then(answers => {
                 if (answers.isProjectCreate) {

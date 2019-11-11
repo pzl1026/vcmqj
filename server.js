@@ -5,7 +5,7 @@ const apiMocker = require('webpack-api-mocker');
 const fs = require("fs");
 const config = require('./webpack.dev.js');
 const compiler = webpack(config);
-const conf = require('./conf');
+const conf = require('./bin/conf');
 const CWD= process.cwd();
 const mockFiles = fs.readdirSync(path.resolve(CWD, './mock'));
 
@@ -40,7 +40,7 @@ webpackDevServer.addDevServerEntrypoints(config, options);
 const server = new webpackDevServer(compiler, options);
 
 // Serve the files on port 3000.
-server.listen(8080, function () {
+server.listen(conf.port || 8080, function () {
   console.log('Example app listening on port 3000!\n');
 });
 

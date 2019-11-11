@@ -1,6 +1,6 @@
 {
-  "name": "wp-vue",
-  "version": "1.0.0",
+  "name": "wp-vr",
+  "version": "0.0.2.1",
   "description": "vue构建",
   "main": "index.js",
   "scripts": {
@@ -29,10 +29,12 @@
     "url": "https://github.com/pzl1026/wp-vue/issues"
   },
   "bin": {
-    "wp-vue": "bin/index.js"
+    "wp-vr": "bin/index.js"
   },
   "homepage": "https://github.com/pzl1026/wp-vue#readme",
   "devDependencies": {
+  },
+  "dependencies": {
     "babel-preset-es2015": "^6.24.1",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.2.0",
@@ -58,9 +60,7 @@
     "webpack-dev-server": "^3.8.1",
     "webpack-manifest-plugin": "^2.1.1",
     "webpack-merge": "^4.2.2",
-    "workbox-webpack-plugin": "^4.3.1"
-  },
-  "dependencies": {
+    "workbox-webpack-plugin": "^4.3.1",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.6",
     "babel-polyfill": "^6.26.0",

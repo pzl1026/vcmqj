@@ -7,7 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const config = require('./bin/conf');
 
- module.exports = merge(vueConfigs, {
+module.exports = merge(vueConfigs, {
     devtool: 'inline-source-map',
     // devServer: {
     //     contentBase: './dist',
@@ -18,6 +18,7 @@ const config = require('./bin/conf');
     //     overlay: true,
     //     progress: true
     // },
+    
     mode: 'development',
     plugins: [
         new ManifestPlugin(),
@@ -25,6 +26,24 @@ const config = require('./bin/conf');
         new webpack.HotModuleReplacementPlugin(),
         new webpack.DefinePlugin({
             MOCK: config.mock || true
-        })
+        }),
+        // new webpack.SourceMapDevToolPlugin({
+        //     filename: '[name].[hash].js.map',
+        //     exclude: ['vendor.js']
+        // })
     ],
+    devServer: {
+        disableHostCheck: true,
+        historyApiFallback: {
+            rewrites: [
+                { from: /.*/, to: '/index.html' },
+            ]
+        },
+        hot: true,
+        compress: true,
+        open: true,
+        overlay: true,
+        publicPath: '/',
+        quiet: false
+    },
 });

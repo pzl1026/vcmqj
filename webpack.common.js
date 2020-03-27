@@ -8,6 +8,10 @@
  const webpack = require('webpack');
  const CWD = process.cwd();
 
+ function resolve(dir){
+     console.log(path.join(CWD, dir || ''), 'lll')
+    return path.join(CWD, dir || '');
+}   
  module.exports = {
     entry: {
         // polyfills: [
@@ -17,47 +21,73 @@
             path.join(CWD, './src/index.js')
         ],
     },
+    // stats: {
+    //     chunkModules: true
+    // },
     resolve: {
-        extensions: [".js", ".jsx"],
+        extensions: [".js", ".jsx", '.vue'],
         alias: {
-            'vue$': 'vue/dist/vue.esm.js'
+            'vue$': 'vue/dist/vue.esm.js',
+            'vue-router$': 'vue-router/dist/vue-router.js',
+            '@':  path.join(CWD, './src')
         }
 	},
     module: {
         rules: [
             {
-                test: /\.css$/,
-                // use: ['style-loader', 'css-loader'],
-                // use: ExtractTextPlugin.extract({
-                //     fallback: "style-loader",
-                //     use: "css-loader"
-                // }),
+                test: /\.less$/,
+                // loader: 'less-loader', // compiles Less to CSS
                 use: [
                     {
-                      loader: MiniCssExtractPlugin.loader,
+                      loader: 'style-loader',
+                    },
+                    {
+                      loader: 'css-loader',
+                    },
+                    {
+                      loader: 'less-loader',
                       options: {
-                        publicPath: (resourcePath, context) => {
-                          // publicPath is the relative path of the resource to the context
-                          // e.g. for ./css/admin/main.css the publicPath will be ../../
-                          // while for ./css/main.css the publicPath will be ../
-                          return path.relative(path.dirname(resourcePath), context) + '/';
+                        lessOptions: {
+                          strictMath: true,
+                          noIeCompat: true,
                         },
                       },
                     },
-                    'css-loader',
-                  ],
+                ],
+            },
+            {
+                test: /\.css$/,
+                // use: ['style-loader', 'css-loader'],
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: "css-loader"
+                }),
+                // use: [
+                //     {
+                //       loader: MiniCssExtractPlugin.loader,
+                //       options: {
+                //         publicPath: (resourcePath, context) => {
+                //           // publicPath is the relative path of the resource to the context
+                //           // e.g. for ./css/admin/main.css the publicPath will be ../../
+                //           // while for ./css/main.css the publicPath will be ../
+                //           return path.relative(path.dirname(resourcePath), context) + '/';
+                //         },
+                //       },
+                //     },
+                //     'css-loader',
+                // ],
             },
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                // exclude: /node_modules/  
+                exclude: /node_modules/  
             },
             {
                 test: /\.(png|jpg|gif)$/,
                 loader: 'url-loader',
                 query: {
                     // 把较小的图片转换成base64的字符串内嵌在生成的js文件里
-                    limit: 10000,
+                    // limit: 1000000,
                     // 路径要与当前配置文件下的publicPath相结合
                     name:'../img/[name].[ext]?[hash:7]'
                 }
@@ -75,9 +105,12 @@
             }, 
         ]
     },
-    optimization: {
-        minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
-    },
+    // optimization: {
+    //     minimizer: [
+    //         new TerserJSPlugin({}),
+    //         // new OptimizeCSSAssetsPlugin({})
+    //     ],
+    // },
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
@@ -99,11 +132,23 @@
         new MiniCssExtractPlugin({
             filename: '[name].css',
             // chunkFilename: '[id].css',
-          }),
+        }),
     ],
+    // optimization: {
+    //     splitChunks: {
+    //         cacheGroups: {
+    //             commons: {
+    //                 name: "commons",
+    //                 chunks: "initial",
+    //                 minChunks: 2
+    //             }
+    //         }
+    //     }
+    // },
     output: {
         filename: '[name].bundle.js',
-        path: path.join(CWD, './public2/dist') //这边目录不对
+        path: path.join(CWD, './public2/dist'), //这边目录不对
         // path:  'e:\\public2\\dist'
+        // publicPath: '/',
     }
  };

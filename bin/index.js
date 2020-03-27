@@ -10,6 +10,8 @@ const CWD= process.cwd();
 const program = require('./program');
 const  po = program.opts();
 
+// console.log(program, 'program')
+
 if (program.devConf) {
     global.confFile = po.devConf;
     webpack(require('../webpack.dll.config'),  (err, stats) => {
@@ -58,8 +60,9 @@ if (program.buildConf) {
         console.log(chalk.cyan('Build complete.\n'));
     });
 };
-
-if (program.create) {
+// console.log(program.create, 'program.create')
+if (program.projectName) {
     global.projectName = program.projectName || 'myproject';
+    console.log(888777);
     require('../repo');
 }

@@ -19,7 +19,7 @@ module.exports = merge(common, {
                             'vue-style-loader',
                             'css-loader',
                             'sass-loader?indentedSyntax'
-                        ]
+                        ],
                     }
                 }
             }

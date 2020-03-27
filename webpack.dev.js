@@ -8,7 +8,7 @@ const webpack = require('webpack');
 const config = require('./bin/conf');
 
 module.exports = merge(vueConfigs, {
-    devtool: 'inline-source-map',
+    devtool: 'inline',
     // devServer: {
     //     contentBase: './dist',
     //     hot: true,

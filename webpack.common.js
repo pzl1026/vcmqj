@@ -87,9 +87,11 @@
                 loader: 'url-loader',
                 query: {
                     // 把较小的图片转换成base64的字符串内嵌在生成的js文件里
+                    esModule: false,
                     // limit: 1000000,
                     // 路径要与当前配置文件下的publicPath相结合
-                    name:'../img/[name].[ext]?[hash:7]'
+                    // name:'[name].[ext]?[hash:7]'
+                    name: '/img/[name].[hash:7].[ext]'
                 }
             },
             // 加载图标
@@ -105,12 +107,12 @@
             }, 
         ]
     },
-    // optimization: {
-    //     minimizer: [
-    //         new TerserJSPlugin({}),
-    //         // new OptimizeCSSAssetsPlugin({})
-    //     ],
-    // },
+    optimization: {
+        minimizer: [
+            new TerserJSPlugin({}),
+            new OptimizeCSSAssetsPlugin({})
+        ],
+    },
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
@@ -134,21 +136,21 @@
             // chunkFilename: '[id].css',
         }),
     ],
-    // optimization: {
-    //     splitChunks: {
-    //         cacheGroups: {
-    //             commons: {
-    //                 name: "commons",
-    //                 chunks: "initial",
-    //                 minChunks: 2
-    //             }
-    //         }
-    //     }
-    // },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    name: "commons",
+                    chunks: "initial",
+                    minChunks: 2
+                }
+            }
+        }
+    },
     output: {
-        filename: '[name].bundle.js',
+        filename: 'dist/js/[name].[hash].js',
         path: path.join(CWD, './public2/dist'), //这边目录不对
         // path:  'e:\\public2\\dist'
-        // publicPath: '/',
+        publicPath: '/',
     }
  };

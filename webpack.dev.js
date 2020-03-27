@@ -6,9 +6,15 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const config = require('./bin/conf');
+const apiMocker = require('webpack-api-mocker');
+const path = require('path');
+const CWD = process.cwd();
+// var proxy = require(path.join(CWD, './conf/env/pzl.js'));
 
-module.exports = merge(vueConfigs, {
-    devtool: 'inline',
+// console.log(proxy, 'proxy');
+// console.log(path.join(CWD, './conf/mocker.js'), 'kkk')
+const config2 = merge(vueConfigs, {
+    devtool: 'cheap-eval-source-map',
     // devServer: {
     //     contentBase: './dist',
     //     hot: true,
@@ -34,16 +40,50 @@ module.exports = merge(vueConfigs, {
     ],
     devServer: {
         disableHostCheck: true,
-        historyApiFallback: {
-            rewrites: [
-                { from: /.*/, to: '/index.html' },
-            ]
-        },
+        historyApiFallback: true,
         hot: true,
         compress: true,
         open: true,
         overlay: true,
         publicPath: '/',
-        quiet: false
+        quiet: false,
+        // allowedHosts: [
+        //     'http://dev-manage-chenyinfei.mingqijia.com'
+        // ],
+        // before: function(app){
+        //     console.log(73737737373)
+        //     apiMocker(app, path.resolve(CWD, 'conf/mocker.js'), {
+        //         proxy: {
+        //             '/api': {
+        //                 target: 'http://dev-manage-chenyinfei.mingqijia.com/',
+        //                 // pathRewrite: {'^/api' : ''}
+        //                 changeOrigin: true,
+        //                 // pathRewrite: { '^/api': '/api' }
+        //                 secure: false,
+        //                 // // changeOrigin: true,
+        //                 // pathRewrite: {
+        //                 // "^/api": "/api"
+        //                 // },
+        //             }
+        //         },
+        //         changeHost: true
+        //     })
+        // },
+        proxy: {
+            '/api': {
+                target: 'http://dev-manage-chenyinfei.mingqijia.com/',
+                // pathRewrite: {'^/api' : ''}
+                changeOrigin: true,
+                // pathRewrite: { '^/api': '/api' }
+                // secure: false,
+                // // changeOrigin: true,
+                // pathRewrite: {
+                //  "^/api": "/api"
+                // },
+            }
+        }
     },
 });
+
+console.log(config2.devServer.proxy, 'proxyproxyproxy');
+module.exports = config2;

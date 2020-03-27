@@ -10,24 +10,53 @@ const CWD= process.cwd();
 const mockFiles = fs.readdirSync(path.resolve(CWD, './mock'));
 
 const options = {
-    contentBase: './dist',
-    hot: true,
-    host: 'localhost',
-    compress: true,
-    historyApiFallback: true,
-    open: true,
-    overlay: true,
-    progress: true,
+    // contentBase: './dist',
+    // hot: true,
+    // host: 'localhost',
+    // compress: true,
+    // historyApiFallback: true,
+    // open: true,
+    // overlay: true,
+    // progress: true,
+    // watchOptions: {
+    //   ignored: /node_modules/,
+    //   aggregateTimeout: 300,
+    //   poll: 1000
+    // },
+    // before(app){
+    //   mockFiles && mockFiles.forEach((item) => {
+    //     apiMocker(app, path.resolve(CWD, `./mock/${item}`))
+    //   });
+    // },
+    // ...conf.devServer
+    
     watchOptions: {
       ignored: /node_modules/,
       aggregateTimeout: 300,
       poll: 1000
     },
-    before(app){
-      mockFiles && mockFiles.forEach((item) => {
-        apiMocker(app, path.resolve(CWD, `./mock/${item}`))
-      });
-    },
+    disableHostCheck: true,
+    historyApiFallback: true,
+    hot: true,
+    compress: true,
+    open: true,
+    overlay: true,
+    publicPath: '/',
+    quiet: false,
+    progress: true,
+    // proxy: {
+    //   '/api': {
+    //       target: 'http://dev-manage-chenyinfei.mingqijia.com/',
+    //       // pathRewrite: {'^/api' : ''}
+    //       changeOrigin: true,
+    //       // pathRewrite: { '^/api': '/api' }
+    //       // secure: false,
+    //       // // changeOrigin: true,
+    //       // pathRewrite: {
+    //       //  "^/api": "/api"
+    //       // },
+    //   }
+    // },
     ...conf.devServer
 };
 

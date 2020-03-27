@@ -7,7 +7,7 @@ const config = require('./webpack.dev.js');
 const compiler = webpack(config);
 const conf = require('./bin/conf');
 const CWD= process.cwd();
-const mockFiles = fs.readdirSync(path.resolve(CWD, './mock'));
+// const mockFiles = fs.readdirSync(path.resolve(CWD, './mock'));
 
 const options = {
     // contentBase: './dist',
@@ -29,7 +29,7 @@ const options = {
     //   });
     // },
     // ...conf.devServer
-    
+
     watchOptions: {
       ignored: /node_modules/,
       aggregateTimeout: 300,

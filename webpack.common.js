@@ -83,7 +83,7 @@
                 exclude: /node_modules/  
             },
             {
-                test: /\.(png|jpg|gif)$/,
+                test: /\.(png|jpg|gif|ico)$/,
                 loader: 'url-loader',
                 query: {
                     // 把较小的图片转换成base64的字符串内嵌在生成的js文件里

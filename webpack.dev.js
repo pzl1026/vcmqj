@@ -85,5 +85,4 @@ const config2 = merge(vueConfigs, {
     },
 });
 
-console.log(config2.devServer.proxy, 'proxyproxyproxy');
 module.exports = config2;

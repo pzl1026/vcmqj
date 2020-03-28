@@ -20,4 +20,5 @@ report.*.json
 package-lock.json
 jsconfig.json
 debug.log
+yarn.lock
 

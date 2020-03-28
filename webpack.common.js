@@ -32,8 +32,8 @@
     resolve: {
         extensions: [".js", ".jsx", '.vue'],
         alias: {
-            // 'vue$': 'vue/dist/vue.esm.js',
-            // 'vue-router$': 'vue-router/dist/vue-router.js',
+            'vue$': 'vue/dist/vue.esm.js',
+            'vue-router$': 'vue-router/dist/vue-router.js',
             '@':  path.join(CWD, './src')
         }
 	},
@@ -88,8 +88,7 @@
                 test: /\.js$/,
                 // loader: 'babel-loader',
                 use: 'HappyPack/loader?id=babel',
-                exclude: /node_modules/ 
-                 
+                exclude: /node_modules/
             },
             {
                 test: /\.(png|jpg|gif|ico)$/,
@@ -117,16 +116,25 @@
         ]
     },
     optimization: {
+        minimize: false,
         minimizer: [
-            new TerserJSPlugin({}),
+            new TerserJSPlugin({
+                cache: true,
+                parallel: true,
+            }),
             new OptimizeCSSAssetsPlugin({})
         ],
+        // runtimeChunk: {
+        //     name: entrypoint => `runtimechunk~${entrypoint.name}`
+        // },
+        // namedChunks: true,
+        // noEmitOnErrors: true,
         splitChunks: {
             cacheGroups: {
                 commons: {
                     name: "commons",
                     chunks: "initial",
-                    minChunks: 2
+                    minChunks: 4
                 }
             }
         }

@@ -17,12 +17,12 @@ const CWD = process.cwd();
 // 'vue-router': 'vue-router',
 const config2 = merge(vueConfigs, {
     devtool: 'cheap-eval-source-map',
-    externals : {
-        lodash: '_',
-        vue: 'Vue',
-        'vue-router': 'VueRouter',
-        echarts: 'echarts'
-    },
+    // externals : {
+    //     lodash: '_',
+    //     vue: 'Vue',
+    //     'vue-router': 'VueRouter',
+    //     echarts: 'echarts'
+    // },
     
     mode: 'development',
     plugins: [

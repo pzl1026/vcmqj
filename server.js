@@ -32,7 +32,7 @@ const options = {
 
     watchOptions: {
       ignored: /node_modules/,
-      aggregateTimeout: 300,
+      aggregateTimeout: 100,
       poll: 100
     },
     disableHostCheck: true,

@@ -13,21 +13,20 @@ const CWD = process.cwd();
 
 // console.log(proxy, 'proxy');
 // console.log(path.join(CWD, './conf/mocker.js'), 'kkk')
+// vue: 'Vue',
+// 'vue-router': 'vue-router',
 const config2 = merge(vueConfigs, {
     devtool: 'cheap-eval-source-map',
-    // devServer: {
-    //     contentBase: './dist',
-    //     hot: true,
-    //     compress: true,
-    //     historyApiFallback: true,
-    //     open: true,
-    //     overlay: true,
-    //     progress: true
-    // },
+    externals : {
+        lodash: '_',
+        vue: 'Vue',
+        'vue-router': 'VueRouter',
+        echarts: 'echarts'
+    },
     
     mode: 'development',
     plugins: [
-        new ManifestPlugin(),
+        // new ManifestPlugin(),
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.DefinePlugin({

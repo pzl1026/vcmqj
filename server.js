@@ -33,7 +33,7 @@ const options = {
     watchOptions: {
       ignored: /node_modules/,
       aggregateTimeout: 300,
-      poll: 1000
+      poll: 100
     },
     disableHostCheck: true,
     historyApiFallback: {
@@ -47,7 +47,7 @@ const options = {
     overlay: true,
     publicPath: '/',
     quiet: false,
-    progress: true,
+    // progress: true,
     ...conf.devServer
 };
 

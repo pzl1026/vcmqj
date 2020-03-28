@@ -8,6 +8,8 @@
  const CopyWebpackPlugin = require('copy-webpack-plugin');
  const webpack = require('webpack');
  const HappyPack = require('happypack');
+ const os = require('os');
+ const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
  const CWD = process.cwd();
 
  function resolve(dir){
@@ -26,11 +28,12 @@
     // stats: {
     //     chunkModules: true
     // },
+    cache: true,
     resolve: {
         extensions: [".js", ".jsx", '.vue'],
         alias: {
-            'vue$': 'vue/dist/vue.esm.js',
-            'vue-router$': 'vue-router/dist/vue-router.js',
+            // 'vue$': 'vue/dist/vue.esm.js',
+            // 'vue-router$': 'vue-router/dist/vue-router.js',
             '@':  path.join(CWD, './src')
         }
 	},
@@ -38,6 +41,7 @@
         rules: [
             {
                 test: /\.less$/,
+                // use: 'HappyPack/loader?id=less',
                 // loader: 'less-loader', // compiles Less to CSS
                 use: [
                     {
@@ -60,6 +64,7 @@
             {
                 test: /\.css$/,
                 // use: ['style-loader', 'css-loader'],
+                // use: 'HappyPack/loader?id=css',
                 use: ExtractTextPlugin.extract({
                     fallback: "style-loader",
                     use: "css-loader"
@@ -81,8 +86,8 @@
             },
             {
                 test: /\.js$/,
-                loader: 'babel-loader',
-                // loader: 'happy/loader?id=babel',
+                // loader: 'babel-loader',
+                use: 'HappyPack/loader?id=babel',
                 exclude: /node_modules/ 
                  
             },
@@ -116,46 +121,6 @@
             new TerserJSPlugin({}),
             new OptimizeCSSAssetsPlugin({})
         ],
-    },
-    plugins: [
-        new CleanWebpackPlugin(),
-        new HtmlWebpackPlugin({
-            hash: true,
-            title: 'Output Management',
-            template: path.join(CWD, './index.html')
-        }),
-        new ExtractTextPlugin("styles.css"),
-        new webpack.ProvidePlugin({
-            _: 'lodash'
-        }),
-        new webpack.DllReferencePlugin({
-            context: __dirname,
-            manifest: require('./public/dll/lodash.manifest.json'),
-            name: './public/dll/lodash.dll.js',
-            scope: "xyz",
-            sourceType: "commonjs2"
-        }),
-        new MiniCssExtractPlugin({
-            filename: '[name].css',
-            // chunkFilename: '[id].css',
-        }),
-        new CopyWebpackPlugin([
-            {
-                from: path.join(CWD, './static'),
-                to:  'static',
-                ignore: ['.*']
-            }
-        ]),
-        // new HappyPack({
-        //     id: 'babel',
-        //     loaders: [ 'babel-loader?cacheDirectory']
-        // }),
-        // new HappyPack({
-        //     id: 'babel',
-        //     loaders: [ 'babel-loader?cacheDirectory']
-        // }),
-    ],
-    optimization: {
         splitChunks: {
             cacheGroups: {
                 commons: {
@@ -166,6 +131,65 @@
             }
         }
     },
+    plugins: [
+        // new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            hash: true,
+            title: 'Output Management',
+            template: path.join(CWD, './index.html')
+        }),
+        new ExtractTextPlugin("styles.css"),
+        // new webpack.ProvidePlugin({
+        //     _: 'lodash'
+        // }),
+        // new webpack.DllReferencePlugin({
+        //     context: __dirname,
+        //     manifest: require('./public/dll/lodash.manifest.json'),
+        //     name: './public/dll/lodash.dll.js',
+        //     scope: "xyz",
+        //     sourceType: "commonjs2"
+        // }),
+        // new MiniCssExtractPlugin({
+        //     filename: '[name].css',
+        //     // chunkFilename: '[id].css',
+        // }),
+        new CopyWebpackPlugin([
+            {
+                from: path.join(CWD, './static'),
+                to:  'static',
+                ignore: ['.*']
+            }
+        ]),
+        new HappyPack({
+            id: 'babel',
+            threadPool: happyThreadPool,
+            loaders: [{
+                loader: 'babel-loader?cacheDirectory=true',
+            }]
+            // loaders: [ 'babel-loader?cacheDirectory']
+        }),
+        // new HappyPack({
+        //     id: 'less',
+        //     threads: 2,
+        //     loaders: [ 
+        //         {
+        //             loader: 'style-loader',
+        //         },
+        //         {
+        //             loader: 'css-loader',
+        //         },
+        //         {
+        //             loader: 'less-loader',
+        //             options: {
+        //               lessOptions: {
+        //                 strictMath: true,
+        //                 noIeCompat: true,
+        //               },
+        //             },
+        //         }
+        //     ]
+        // }),
+    ],
     output: {
         // filename: 'dist/js/[name].[hash].js',
         // path: path.join(CWD, './public2/dist'), //这边目录不对

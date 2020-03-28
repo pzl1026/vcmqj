@@ -5,7 +5,9 @@
  const MiniCssExtractPlugin = require('mini-css-extract-plugin');
  const TerserJSPlugin = require('terser-webpack-plugin');
  const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+ const CopyWebpackPlugin = require('copy-webpack-plugin');
  const webpack = require('webpack');
+ const HappyPack = require('happypack');
  const CWD = process.cwd();
 
  function resolve(dir){
@@ -80,7 +82,9 @@
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                exclude: /node_modules/  
+                // loader: 'happy/loader?id=babel',
+                exclude: /node_modules/ 
+                 
             },
             {
                 test: /\.(png|jpg|gif|ico)$/,
@@ -135,6 +139,21 @@
             filename: '[name].css',
             // chunkFilename: '[id].css',
         }),
+        new CopyWebpackPlugin([
+            {
+                from: path.join(CWD, './static'),
+                to:  'static',
+                ignore: ['.*']
+            }
+        ]),
+        // new HappyPack({
+        //     id: 'babel',
+        //     loaders: [ 'babel-loader?cacheDirectory']
+        // }),
+        // new HappyPack({
+        //     id: 'babel',
+        //     loaders: [ 'babel-loader?cacheDirectory']
+        // }),
     ],
     optimization: {
         splitChunks: {
@@ -148,9 +167,13 @@
         }
     },
     output: {
-        filename: 'dist/js/[name].[hash].js',
-        path: path.join(CWD, './public2/dist'), //这边目录不对
-        // path:  'e:\\public2\\dist'
+        // filename: 'dist/js/[name].[hash].js',
+        // path: path.join(CWD, './public2/dist'), //这边目录不对
+        // // path:  'e:\\public2\\dist'
+        // publicPath: '/',
+
+        path: resolve('_debug'),
         publicPath: '/',
+        filename: 'static/js/[name].[hash].js'
     }
  };

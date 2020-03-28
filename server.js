@@ -36,7 +36,11 @@ const options = {
       poll: 1000
     },
     disableHostCheck: true,
-    historyApiFallback: true,
+    historyApiFallback: {
+        rewrites: [
+            { from: /.*/, to: '/index.html' },
+        ]
+    },
     hot: true,
     compress: true,
     open: true,
@@ -44,19 +48,6 @@ const options = {
     publicPath: '/',
     quiet: false,
     progress: true,
-    // proxy: {
-    //   '/api': {
-    //       target: 'http://dev-manage-chenyinfei.mingqijia.com/',
-    //       // pathRewrite: {'^/api' : ''}
-    //       changeOrigin: true,
-    //       // pathRewrite: { '^/api': '/api' }
-    //       // secure: false,
-    //       // // changeOrigin: true,
-    //       // pathRewrite: {
-    //       //  "^/api": "/api"
-    //       // },
-    //   }
-    // },
     ...conf.devServer
 };
 
@@ -69,9 +60,13 @@ webpackDevServer.addDevServerEntrypoints(config, options);
 const server = new webpackDevServer(compiler, options);
 
 // Serve the files on port 3000.
-server.listen(conf.port || 8080, function () {
-  console.log('Example app listening on port 3000!\n');
-});
+require('./port').then(port => {
+  let p = conf.port || port;
+  server.listen(p, function () {
+    console.log(`listening on port ${p}!\n`);
+  });
+})
+
 
 // const webpackDevMiddleware = require('webpack-dev-middleware');
 

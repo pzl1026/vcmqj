@@ -1,7 +1,7 @@
 {
-  "name": "wp-vr",
-  "version": "0.0.3",
-  "description": "vue构建",
+  "name": "vmqj",
+  "version": "0.0.1",
+  "description": "名气家项目前端构建",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -29,10 +29,9 @@
     "url": "https://github.com/pzl1026/wp-vue/issues"
   },
   "bin": {
-    "wp-vr": "bin/index.js"
+    "vmqj": "bin/index.js"
   },
   "homepage": "https://github.com/pzl1026/wp-vue#readme",
-  "devDependencies": {},
   "dependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.6",
@@ -47,6 +46,7 @@
     "chalk": "^2.4.2",
     "clean-webpack-plugin": "^3.0.0",
     "commander": "^4.0.0",
+    "copy-webpack-plugin": "^5.1.1",
     "css-loader": "^3.2.0",
     "download-git-repo": "^3.0.2",
     "express": "^4.17.1",
@@ -79,5 +79,9 @@
     "webpack-merge": "^4.2.2",
     "whatwg-fetch": "^3.0.0",
     "workbox-webpack-plugin": "^4.3.1"
+  },
+  "devDependencies": {
+    "happypack": "^5.0.1",
+    "portfinder": "^1.0.25"
   }
 }

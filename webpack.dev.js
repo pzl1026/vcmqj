@@ -38,51 +38,6 @@ const config2 = merge(vueConfigs, {
         //     exclude: ['vendor.js']
         // })
     ],
-    devServer: {
-        disableHostCheck: true,
-        historyApiFallback: true,
-        hot: true,
-        compress: true,
-        open: true,
-        overlay: true,
-        publicPath: '/',
-        quiet: false,
-        // allowedHosts: [
-        //     'http://dev-manage-chenyinfei.mingqijia.com'
-        // ],
-        // before: function(app){
-        //     console.log(73737737373)
-        //     apiMocker(app, path.resolve(CWD, 'conf/mocker.js'), {
-        //         proxy: {
-        //             '/api': {
-        //                 target: 'http://dev-manage-chenyinfei.mingqijia.com/',
-        //                 // pathRewrite: {'^/api' : ''}
-        //                 changeOrigin: true,
-        //                 // pathRewrite: { '^/api': '/api' }
-        //                 secure: false,
-        //                 // // changeOrigin: true,
-        //                 // pathRewrite: {
-        //                 // "^/api": "/api"
-        //                 // },
-        //             }
-        //         },
-        //         changeHost: true
-        //     })
-        // },
-        proxy: {
-            '/api': {
-                target: 'http://dev-manage-chenyinfei.mingqijia.com/',
-                // pathRewrite: {'^/api' : ''}
-                changeOrigin: true,
-                // pathRewrite: { '^/api': '/api' }
-                // secure: false,
-                // // changeOrigin: true,
-                // pathRewrite: {
-                //  "^/api": "/api"
-                // },
-            }
-        }
-    },
 });
 
 module.exports = config2;

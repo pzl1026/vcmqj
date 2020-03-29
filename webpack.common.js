@@ -2,7 +2,6 @@
  const {CleanWebpackPlugin} = require('clean-webpack-plugin');
  const HtmlWebpackPlugin = require('html-webpack-plugin');
  const ExtractTextPlugin = require("extract-text-webpack-plugin");
- const MiniCssExtractPlugin = require('mini-css-extract-plugin');
  const TerserJSPlugin = require('terser-webpack-plugin');
  const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
  const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -13,21 +12,14 @@
  const CWD = process.cwd();
 
  function resolve(dir){
-     console.log(path.join(CWD, dir || ''), 'lll')
     return path.join(CWD, dir || '');
 }   
  module.exports = {
     entry: {
-        // polyfills: [
-        //     path.join(CWD, './src/polyfills.js')
-        // ],
         app: [
             path.join(CWD, './src/index.js')
         ],
     },
-    // stats: {
-    //     chunkModules: true
-    // },
     cache: true,
     resolve: {
         extensions: [".js", ".jsx", '.vue'],
@@ -63,26 +55,10 @@
             },
             {
                 test: /\.css$/,
-                // use: ['style-loader', 'css-loader'],
-                // use: 'HappyPack/loader?id=css',
                 use: ExtractTextPlugin.extract({
                     fallback: "style-loader",
                     use: "css-loader"
                 }),
-                // use: [
-                //     {
-                //       loader: MiniCssExtractPlugin.loader,
-                //       options: {
-                //         publicPath: (resourcePath, context) => {
-                //           // publicPath is the relative path of the resource to the context
-                //           // e.g. for ./css/admin/main.css the publicPath will be ../../
-                //           // while for ./css/main.css the publicPath will be ../
-                //           return path.relative(path.dirname(resourcePath), context) + '/';
-                //         },
-                //       },
-                //     },
-                //     'css-loader',
-                // ],
             },
             {
                 test: /\.js$/,
@@ -124,11 +100,6 @@
             }),
             new OptimizeCSSAssetsPlugin({})
         ],
-        // runtimeChunk: {
-        //     name: entrypoint => `runtimechunk~${entrypoint.name}`
-        // },
-        // namedChunks: true,
-        // noEmitOnErrors: true,
         splitChunks: {
             cacheGroups: {
                 commons: {
@@ -140,27 +111,12 @@
         }
     },
     plugins: [
-        // new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             hash: true,
             title: 'Output Management',
             template: path.join(CWD, './index.html')
         }),
         new ExtractTextPlugin("styles.css"),
-        // new webpack.ProvidePlugin({
-        //     _: 'lodash'
-        // }),
-        // new webpack.DllReferencePlugin({
-        //     context: __dirname,
-        //     manifest: require('./public/dll/lodash.manifest.json'),
-        //     name: './public/dll/lodash.dll.js',
-        //     scope: "xyz",
-        //     sourceType: "commonjs2"
-        // }),
-        // new MiniCssExtractPlugin({
-        //     filename: '[name].css',
-        //     // chunkFilename: '[id].css',
-        // }),
         new CopyWebpackPlugin([
             {
                 from: path.join(CWD, './static'),
@@ -174,36 +130,9 @@
             loaders: [{
                 loader: 'babel-loader?cacheDirectory=true',
             }]
-            // loaders: [ 'babel-loader?cacheDirectory']
-        }),
-        // new HappyPack({
-        //     id: 'less',
-        //     threads: 2,
-        //     loaders: [ 
-        //         {
-        //             loader: 'style-loader',
-        //         },
-        //         {
-        //             loader: 'css-loader',
-        //         },
-        //         {
-        //             loader: 'less-loader',
-        //             options: {
-        //               lessOptions: {
-        //                 strictMath: true,
-        //                 noIeCompat: true,
-        //               },
-        //             },
-        //         }
-        //     ]
-        // }),
+        })
     ],
     output: {
-        // filename: 'dist/js/[name].[hash].js',
-        // path: path.join(CWD, './public2/dist'), //这边目录不对
-        // // path:  'e:\\public2\\dist'
-        // publicPath: '/',
-
         path: resolve('_debug'),
         publicPath: '/',
         filename: 'static/js/[name].[hash].js'

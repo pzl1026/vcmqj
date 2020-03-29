@@ -10,26 +10,6 @@ const CWD= process.cwd();
 // const mockFiles = fs.readdirSync(path.resolve(CWD, './mock'));
 
 const options = {
-    // contentBase: './dist',
-    // hot: true,
-    // host: 'localhost',
-    // compress: true,
-    // historyApiFallback: true,
-    // open: true,
-    // overlay: true,
-    // progress: true,
-    // watchOptions: {
-    //   ignored: /node_modules/,
-    //   aggregateTimeout: 300,
-    //   poll: 1000
-    // },
-    // before(app){
-    //   mockFiles && mockFiles.forEach((item) => {
-    //     apiMocker(app, path.resolve(CWD, `./mock/${item}`))
-    //   });
-    // },
-    // ...conf.devServer
-
     watchOptions: {
       ignored: /node_modules/,
       aggregateTimeout: 100,
@@ -47,16 +27,12 @@ const options = {
     overlay: true,
     publicPath: '/',
     quiet: false,
-    // progress: true,
     ...conf.devServer
 };
 
 // Tell express to use the webpack-dev-middleware and use the webpack.config.js
 // configuration file as a base.
 webpackDevServer.addDevServerEntrypoints(config, options);
-// app.use(webpackDevMiddleware(compiler, {
-//   publicPath: config.output.publicPath
-// }));
 const server = new webpackDevServer(compiler, options);
 
 // Serve the files on port 3000.
@@ -66,8 +42,3 @@ require('./port').then(port => {
     console.log(`listening on port ${p}!\n`);
   });
 })
-
-
-// const webpackDevMiddleware = require('webpack-dev-middleware');
-
-// const app = express();

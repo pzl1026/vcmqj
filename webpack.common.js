@@ -1,15 +1,12 @@
  const path = require('path');
  const {CleanWebpackPlugin} = require('clean-webpack-plugin');
  const HtmlWebpackPlugin = require('html-webpack-plugin');
- const ExtractTextPlugin = require("extract-text-webpack-plugin");
  const TerserJSPlugin = require('terser-webpack-plugin');
  const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
  const CopyWebpackPlugin = require('copy-webpack-plugin');
  const webpack = require('webpack');
- const HappyPack = require('happypack');
  const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
- const os = require('os');
- const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
+
 
  const utils = require('./utils');
  const CWD = process.cwd();

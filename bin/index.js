@@ -29,10 +29,10 @@ if (program.devConf) {
 
 console.log(program.buildConf, 'program.buildConf')
 if (program.buildConf) {
+    global.confFile = po.buildConf;
     const configs = require('../webpack.prod');
     // const configs = Object.assign({}, require('../webpack.prod'), {'max-new-space-size': 4096});
     spinner.start();
-    // console.log(configs, 'consfidd222')
     const compiler = webpack(configs, (err, stats) => {
         console.log(882828);
         spinner.stop();

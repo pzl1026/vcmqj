@@ -14,12 +14,23 @@ const config2 = merge(vueConfigs, {
     devtool: 'cheap-eval-source-map',
     mode: 'development',
     plugins: [
+        new HtmlWebpackPlugin({
+            hash: true,
+            title: 'Output Management',
+            template: path.join(CWD, './index.html')
+        }),
+        new ExtractTextPlugin("styles.css"),
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.DefinePlugin({
             MOCK: config.mock || true
         })
     ],
+    output: {
+        path: resolve('_debug'),
+        publicPath: '/',
+        filename: 'static/js/[name].[hash].js'
+    }
 });
 
 module.exports = config2;

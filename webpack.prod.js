@@ -74,5 +74,8 @@ module.exports = merge(vueConfigs, {
         //     clientsClaim: true,
         //     skipWaiting: true
         // })
-    ]
+    ],
+    output: {
+        publicPath: '//static.hanwin.com/king'
+    },
  });

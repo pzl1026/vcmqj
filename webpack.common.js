@@ -98,7 +98,7 @@ module.exports = {
                 options: {
                     esModule: false,
                     limit: 100,
-                    name: basePath + 'img/[name].[hash:7].[ext]'
+                    name: basePath + '/img/[name].[hash:7].[ext]'
                 }
             },
             {
@@ -106,7 +106,7 @@ module.exports = {
                 loader: 'url-loader',
                 options: {
                     limit: 10000,
-                    name: basePath + 'media/[name].[hash:7].[ext]'
+                    name: basePath + '/media/[name].[hash:7].[ext]'
                 }
             },
             {
@@ -114,7 +114,7 @@ module.exports = {
                 loader: 'url-loader',
                 options: {
                     limit: 10000,
-                    name: basePath + 'fonts/[name].[hash:7].[ext]'
+                    name: basePath + '/fonts/[name].[hash:7].[ext]'
                 }
             }
         ]

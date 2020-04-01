@@ -73,7 +73,7 @@ let plugins = [
 ];
 
 module.exports = merge(vueConfigs, {
-    devtool: 'cheap-source-map',
+    devtool: 'source-map',
     mode: "production",
     performance: {
         hints:'warning',

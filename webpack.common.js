@@ -62,12 +62,12 @@ module.exports = {
                 extract: true,
                 usePostCSS: true
             }),
-            {
-                test: /\.js$/,
-                loader: 'babel-loader',
-                // use: 'HappyPack/loader?id=babel',
-                exclude: /node_modules/
-            },
+            // {
+            //     test: /\.js$/,
+            //     loader: 'babel-loader',
+            //     // use: 'HappyPack/loader?id=babel',
+            //     exclude: /node_modules/
+            // },
             // {
             //     test: /\.(png|jpg|gif|ico)$/,
             //     loader: 'url-loader',

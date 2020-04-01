@@ -124,16 +124,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             hash: true,
             title: 'Output Management',
-            template: path.join(CWD, './index.html'),
-            chunks: ['manifest', 'v~', 'vendor', 'app']
-        }),
-
-        // new HappyPack({
-        //     id: 'babel',
-        //     threadPool: happyThreadPool,
-        //     loaders: [{
-        //         loader: 'babel-loader?cacheDirectory=true',
-        //     }]
-        // })
+            template: path.join(CWD, './index.html')
+        })
     ]
  };

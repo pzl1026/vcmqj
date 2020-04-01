@@ -54,11 +54,11 @@ const config2 = merge(vueConfigs, {
         }
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            hash: true,
-            title: 'Output Management',
-            template: path.join(CWD, './index.html')
-        }),
+        // new HtmlWebpackPlugin({
+        //     hash: true,
+        //     title: 'Output Management',
+        //     template: path.join(CWD, './index.html')
+        // }),
         new ExtractTextPlugin("styles.css"),
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin(),

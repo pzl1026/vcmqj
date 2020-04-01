@@ -28,40 +28,40 @@ module.exports = {
 	},
     module: {
         rules: [
-            // {
-            //     test: /\.less$/,
-            //     // use: 'HappyPack/loader?id=less',
-            //     // loader: 'less-loader', // compiles Less to CSS
-            //     use: [
-            //         {
-            //           loader: 'style-loader',
-            //         },
-            //         {
-            //           loader: 'css-loader',
-            //         },
-            //         {
-            //           loader: 'less-loader',
-            //           options: {
-            //             lessOptions: {
-            //               strictMath: true,
-            //               noIeCompat: true,
-            //             },
-            //           },
-            //         },
-            //     ],
-            // },
-            // {
-            //     test: /\.css$/,
-            //     use: ExtractTextPlugin.extract({
-            //         fallback: "style-loader",
-            //         use: "css-loader"
-            //     }),
-            // },
-            ...utils.styleLoaders({
-                sourceMap: true,
-                extract: true,
-                usePostCSS: true
-            }),
+            {
+                test: /\.less$/,
+                // use: 'HappyPack/loader?id=less',
+                // loader: 'less-loader', // compiles Less to CSS
+                use: [
+                    {
+                      loader: 'style-loader',
+                    },
+                    {
+                      loader: 'css-loader',
+                    },
+                    {
+                      loader: 'less-loader',
+                      options: {
+                        lessOptions: {
+                          strictMath: true,
+                          noIeCompat: true,
+                        },
+                      },
+                    },
+                ],
+            },
+            {
+                test: /\.css$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: "css-loader"
+                }),
+            },
+            // ...utils.styleLoaders({
+            //     sourceMap: true,
+            //     extract: true,
+            //     usePostCSS: true
+            // }),
             // {
             //     test: /\.js$/,
             //     loader: 'babel-loader',

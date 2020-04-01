@@ -1,7 +1,8 @@
- const merge = require('webpack-merge');
- const common = require('./webpack.common.js');
- const vueConfigs = require('./webpack.vue.config');
- const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const merge = require('webpack-merge');
+const common = require('./webpack.common.js');
+const vueConfigs = require('./webpack.vue.config');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
@@ -70,7 +71,14 @@ const config2 = merge(vueConfigs, {
             loaders: [{
                 loader: 'babel-loader?cacheDirectory=true',
             }]
-        })
+        }),
+        new CopyWebpackPlugin([
+            {
+                from: path.join(CWD, './static'),
+                to:  'static',
+                ignore: ['.*']
+            }
+        ]),
     ],
     output: {
         path: resolve('_debug'),

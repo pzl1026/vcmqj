@@ -11,20 +11,20 @@ const program = require('./program');
 const po = program.opts();
 const ora = require('ora');
 
-
 // console.log(program, 'program')
 
 if (program.devConf) {
     global.confFile = po.devConf;
-    webpack(require('../webpack.dll.config'),  (err, stats) => {
-        if (err) throw err;
+    require('../server');
+    // webpack(require('../webpack.dll.config'),  (err, stats) => {
+    //     if (err) throw err;
 
-        if (stats.hasErrors()) {
-            console.log(chalk.red('Build failed with errors.\n'));
-            process.exit(1);
-        }
-        require('../server');
-    });
+    //     if (stats.hasErrors()) {
+    //         console.log(chalk.red('Build failed with errors.\n'));
+    //         process.exit(1);
+    //     }
+    //     require('../server');
+    // });
 };
 
 if (program.buildConf) {
@@ -67,6 +67,5 @@ if (program.buildConf) {
 // console.log(program.create, 'program.create')
 if (program.projectName) {
     global.projectName = program.projectName || 'myproject';
-    console.log(888777);
     require('../repo');
 }

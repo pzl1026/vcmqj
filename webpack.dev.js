@@ -10,18 +10,17 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const webpack = require('webpack');
 const HappyPack = require('happypack');
-const config = require('./bin/conf');
 const apiMocker = require('webpack-api-mocker');
 const path = require('path');
+const helper = require('./helper');
+const conf = require('./bin/conf');
 const CWD = process.cwd();
 const os = require('os');
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 
-function resolve (dir) {
-    return path.join(process.cwd(), dir);
-}
+delete conf.nomocker;
 
-const config2 = merge(vueConfigs, {
+module.exports = merge(vueConfigs, {
     devtool: 'cheap-eval-source-map',
     mode: 'development',
     module: {
@@ -54,16 +53,11 @@ const config2 = merge(vueConfigs, {
         }
     },
     plugins: [
-        // new HtmlWebpackPlugin({
-        //     hash: true,
-        //     title: 'Output Management',
-        //     template: path.join(CWD, './index.html')
-        // }),
         new ExtractTextPlugin("styles.css"),
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.DefinePlugin({
-            MOCK: config.mock || true
+            MOCK: conf.mock || true
         }),
         new HappyPack({
             id: 'babel',
@@ -79,12 +73,11 @@ const config2 = merge(vueConfigs, {
                 ignore: ['.*']
             }
         ]),
-    ],
+    ]
+}, conf, {
     output: {
-        path: resolve('_debug'),
+        path: helper.resolve('_debug'),
         publicPath: '/',
         filename: 'static/js/[name].[hash].js'
     }
 });
-
-module.exports = config2;

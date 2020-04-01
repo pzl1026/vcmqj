@@ -23,6 +23,8 @@ let publicPath = path2.publicPath, basePath = path2.basePath;
 const os = require('os');
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 
+delete conf.nomocker;
+
 let plugins = [   
     new HtmlWebpackPlugin({
         hash: true,
@@ -136,14 +138,11 @@ module.exports = merge(vueConfigs, {
     //     filename: '[name].[chunkhash].js',
     //     chunkFilename: '[id].[chunkhash].js' 
     // },
+ }, conf, {
     output: {
         path: path.join(CWD, './dist'),
         publicPath,
         filename: basePath + '/js/[name].[chunkhash].js',
         chunkFilename: basePath + '/js/[id].[chunkhash].js' 
     },
- }, conf, {
-    output: {
-        publicPath
-    }
  });

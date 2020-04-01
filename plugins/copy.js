@@ -15,7 +15,6 @@ Copy.prototype.apply = function(compiler){
 
 	compiler.plugin("done", function(compilation){
         console.log(chalk.yellow('  Copy start....'));
-        console.log('');
 
         self.options.forEach(function(option){
             let opts = option.options || {};

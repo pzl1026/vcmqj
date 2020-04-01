@@ -25,6 +25,7 @@ const options = {
     compress: true,
     open: true,
     overlay: true,
+    // progress: true,
     publicPath: '/',
     quiet: false,
     ...conf.devServer
@@ -34,11 +35,10 @@ const options = {
 // configuration file as a base.
 webpackDevServer.addDevServerEntrypoints(config, options);
 const server = new webpackDevServer(compiler, options);
-
 // Serve the files on port 3000.
 require('./port').then(port => {
   let p = conf.port || port;
-  server.listen(p, function () {
+  server.listen(p, '', function (res) {
     console.log(`listening on port ${p}!\n`);
   });
 })

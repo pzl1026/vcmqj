@@ -6,12 +6,10 @@ function resolve (dir) {
 }
 
 function getPublicPathAndBase (outPublicPath) {
-    console.log(outPublicPath, 'outPublicPath');
     let publicPath = '/static', basePath = 'static';
     try{
         publicPath = outPublicPath;
     }catch(e){};
-    console.log(publicPath, 'publicPath');
     publicPath.replace(/((?:(?:https|http?:)?\/\/[\w-]+(?:\.\w+)+)?\/?)?(.*)/, function(all, domain, base){
         publicPath = domain || '';
         basePath = base;

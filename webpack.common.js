@@ -19,6 +19,7 @@ module.exports = {
     },
     cache: true,
     resolve: {
+        modules: ['node_modules'],
         extensions: [".js", ".jsx", '.vue'],
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
@@ -27,6 +28,7 @@ module.exports = {
         }
 	},
     module: {
+        noParse:/^(vue|vue-router|vuex|lodash|echarts)$/, // 忽略模块编译
         rules: [
             {
                 test: /\.less$/,

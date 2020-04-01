@@ -63,7 +63,13 @@ let plugins = [
         }, {
             loader: 'cache-loader'
         }]
-    })
+    }),
+
+    // new webpack.ProvidePlugin({
+    //     _:'lodash',
+    //     'vue$': 'vue/dist/vue.esm.js',
+    //     'vue-router$': 'vue-router/dist/vue-router.js',
+    // })
     // new BundleAnalyzerPlugin(),
     // new WorkboxPlugin.GenerateSW({
     //     // 这些选项帮助 ServiceWorkers 快速启用
@@ -106,6 +112,7 @@ module.exports = merge(vueConfigs, {
             new TerserJSPlugin({
                 cache: true,
                 parallel: true,
+                sourceMap:true
             }),
             new OptimizeCSSAssetsPlugin({})
         ],

@@ -1,50 +1,33 @@
- const merge = require('webpack-merge');
- const path = require("path");
- const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
- const common = require('./webpack.common.js');
- const vueConfigs = require('./webpack.vue.config');
- const ExtractTextPlugin = require("extract-text-webpack-plugin");
- const webpack = require('webpack');
- const CopyPlugin = require('./plugins/copy');
- const HtmlWebpackPlugin = require('html-webpack-plugin');
- const MiniCssExtractPlugin = require('mini-css-extract-plugin');
- const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const merge = require('webpack-merge');
+const path = require("path");
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const common = require('./webpack.common.js');
+const vueConfigs = require('./webpack.vue.config');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const webpack = require('webpack');
+const CopyPlugin = require('./plugins/copy');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const TerserJSPlugin = require('terser-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 //  const WorkboxPlugin = require('workbox-webpack-plugin'); //实现PWA
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HappyPack = require('happypack');
 const conf = require('./bin/conf');
-console.log(conf.plugins, 'ssss');
+const helper = require('./helper');
 const CWD = process.cwd();
-let publicPath = '/static', basePath = 'static';
-    
-try{
-    publicPath = conf.output.publicPath;
-}catch(e){};
+let path2 = helper.getPublicPathAndBase(conf.output.publicPath);
+let publicPath = path2.publicPath, basePath = path2.basePath;
+const os = require('os');
+const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 
-publicPath.replace(/((?:(?:https|http?:)?\/\/[\w-]+(?:\.\w+)+)?\/?)?(.*)/, function(all, domain, base){
-    publicPath = domain || '';
-    basePath = base;
-});
-
-console.log(publicPath, basePath, 'publicPath');
-
-function resolve (dir) {
-    return path.join(process.cwd(), dir);
-}
-
-const handler = (percentage, message, ...args) => {
-    // e.g. Output each progress message directly to the console:
-    console.info(percentage, message, ...args);
-};
-
-let plugins = [
-    // 清除dist目录和output目录
-   
+let plugins = [   
     new HtmlWebpackPlugin({
         hash: true,
         title: 'Output Management',
         template: path.join(CWD, './index.html'),
-        // chunks: ['manifest', 'v~', 'vendor', 'app']
     }),
     new webpack.LoaderOptionsPlugin({
         // test: /\.xxx$/, // may apply this only for some modules
@@ -52,7 +35,7 @@ let plugins = [
           "max-new-space-size": 4096
         }
     }),
-    // new webpack.ProgressPlugin(handler),
+    new webpack.ProgressPlugin(helper.handler),
     new ExtractTextPlugin({
         filename: basePath + '/css/src/[name].[chunkhash].css',
         allChunks: true
@@ -66,6 +49,19 @@ let plugins = [
     new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify('production')
     }),
+    new MiniCssExtractPlugin({
+        filename: '[name].css',
+        chunkFilename: '[id].css',
+    }),
+    new HappyPack({
+        id: 'babel',
+        threadPool: happyThreadPool,
+        loaders: [{
+            loader: 'babel-loader?cacheDirectory=true',
+        }, {
+            loader: 'cache-loader'
+        }]
+    })
     // new BundleAnalyzerPlugin(),
     // new WorkboxPlugin.GenerateSW({
     //     // 这些选项帮助 ServiceWorkers 快速启用
@@ -73,58 +69,11 @@ let plugins = [
     //     clientsClaim: true,
     //     skipWaiting: true
     // })
-
-    new MiniCssExtractPlugin({
-        filename: '[name].css',
-        chunkFilename: '[id].css',
-    }),
-
-    new CleanWebpackPlugin({
-        cleanOnceBeforeBuildPatterns: [resolve('output'), resolve('dist')],
-    }),   
-    ///////
-    // new webpack.DefinePlugin({
-    //     'SERVICE_URL': JSON.stringify(''),
-    //     'process.env': {
-    //         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-    //         PRODUCT_ENV: true
-    //     }
-    // }),
-
-    // new CopyWebpackPlugin([
-    //     {
-    //         from: path.join(CWD, './static'),
-    //         to: path.join(CWD + 'dist/king/js', 'static'),
-    //         ignore: ['.*']
-    //     }
-    // ]),
-
-    // new CleanWebpackPlugin({
-    //     cleanOnceBeforeBuildPatterns: [resolve('output'), resolve('dist')],
-    // }),
-
-    // // 用作部署使用，生成output/static和output/views，便于运维部署
-    // new CopyPlugin([{
-    //     from: 'dist',
-    //     to: 'output/static',
-    //     include: 'dist/king'
-    // },
-    // {
-    //     from: 'dist',
-    //     to: 'output/views',
-    //     exclude: 'dist/king'
-    // }
-    // ])
+    
 ];
 
-let o = {
-    plugins
-};
-
-// plugins = merge(o, {plugins: conf.plugins});
-
-const config = merge(vueConfigs, {
-    devtool: 'source-map',
+module.exports = merge(vueConfigs, {
+    devtool: 'cheap-source-map',
     mode: "production",
     performance: {
         hints:'warning',
@@ -142,18 +91,26 @@ const config = merge(vueConfigs, {
         rules: [
             {
                 test: /\.js$/,
-                loader: 'babel-loader',
+                // loader: 'babel-loader',
+                use: 'HappyPack/loader?id=babel',
                 exclude: /node_modules/,
-                include: [resolve('src'), resolve('node_modules/webpack-dev-server/client')]
+                include: [helper.resolve('src'), helper.resolve('node_modules/webpack-dev-server/client')]
             },
         ],
     },
 
     optimization: {
+        minimizer: [
+            new TerserJSPlugin({
+                cache: true,
+                parallel: true,
+            }),
+            new OptimizeCSSAssetsPlugin({})
+        ],
         splitChunks: {
           chunks: 'async',
           minSize: 30000,
-          maxSize: 5000000,
+          maxSize: 3000000,
           minChunks: Infinity,
           maxAsyncRequests: 5,
           maxInitialRequests: 3,
@@ -165,14 +122,14 @@ const config = merge(vueConfigs, {
               priority: -10
             },
             default: {
-                minChunks: 2,
+                minChunks: 4,
                 priority: -20,
                 reuseExistingChunk: true
             }
           }
         }
-      },
-      plugins,
+    },
+    plugins,
     // output: {
     //     path: path.join(CWD, './dist'),
     //     publicPath: '//static.hanwin.com/',
@@ -190,5 +147,3 @@ const config = merge(vueConfigs, {
         publicPath
     }
  });
-console.log(config, 'config');
- module.exports = config;

@@ -1,21 +1,16 @@
- const path = require('path');
- const {CleanWebpackPlugin} = require('clean-webpack-plugin');
- const HtmlWebpackPlugin = require('html-webpack-plugin');
- const TerserJSPlugin = require('terser-webpack-plugin');
- const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
- const CopyWebpackPlugin = require('copy-webpack-plugin');
- const webpack = require('webpack');
- const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const path = require('path');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const utils = require('./utils');
+const CWD = process.cwd();
+const conf = require('./bin/conf');
+const helper = require('./helper');    
+const basePath = helper.getPublicPathAndBase(conf.output.publicPath).basePath;
 
-
- const utils = require('./utils');
- const CWD = process.cwd();
-
- const basePath = 'king/'
-
-function resolve(dir){
-    return path.join(CWD, dir || '');
-}   
 module.exports = {
     entry: {
         app: [
@@ -124,37 +119,7 @@ module.exports = {
             }
         ]
     },
-    // optimization: {
-    //     minimize: false,
-    //     minimizer: [
-    //         new TerserJSPlugin({
-    //             cache: true,
-    //             parallel: true,
-    //         }),
-    //         new OptimizeCSSAssetsPlugin({}),
-    //         new UglifyJSPlugin({
-    //             uglifyOptions: {
-    //               compress: {
-    //                 warnings: false
-    //               },
-    //               mangle: {
-    //                 safari10: true
-    //               }
-    //             },
-    //             parallel: true
-    //         }),
-            
-    //     ],
-    //     splitChunks: {
-    //         cacheGroups: {
-    //             commons: {
-    //                 name: "commons",
-    //                 chunks: "initial",
-    //                 minChunks: 4
-    //             }
-    //         }
-    //     }
-    // },
+
     plugins: [
         new HtmlWebpackPlugin({
             hash: true,

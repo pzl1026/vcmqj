@@ -5,6 +5,8 @@
 const ManifestPlugin = require('webpack-manifest-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const TerserJSPlugin = require('terser-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const webpack = require('webpack');
 const HappyPack = require('happypack');
 const config = require('./bin/conf');
@@ -25,10 +27,30 @@ const config2 = merge(vueConfigs, {
         rules: [
             {
                 test: /\.js$/,
-                loader: 'babel-loader',
+                // loader: 'babel-loader',
+                use: 'HappyPack/loader?id=babel',
                 exclude: /node_modules/
             },
         ],
+    },
+    optimization: {
+        minimize: false,
+        minimizer: [
+            new TerserJSPlugin({
+                cache: true,
+                parallel: true,
+            }),
+            new OptimizeCSSAssetsPlugin({}),      
+        ],
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    name: "commons",
+                    chunks: "initial",
+                    minChunks: 4
+                }
+            }
+        }
     },
     plugins: [
         new HtmlWebpackPlugin({

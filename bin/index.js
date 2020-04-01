@@ -8,9 +8,9 @@ const webpack = require('webpack');
 const chalk = require('chalk');
 const CWD= process.cwd();
 const program = require('./program');
-const  po = program.opts();
+const po = program.opts();
 const ora = require('ora');
-const spinner = ora('building for production...');
+
 
 // console.log(program, 'program')
 
@@ -27,14 +27,12 @@ if (program.devConf) {
     });
 };
 
-console.log(program.buildConf, 'program.buildConf')
 if (program.buildConf) {
     global.confFile = po.buildConf;
     const configs = require('../webpack.prod');
-    // const configs = Object.assign({}, require('../webpack.prod'), {'max-new-space-size': 4096});
+    const spinner = ora('building for production...');
     spinner.start();
     const compiler = webpack(configs, (err, stats) => {
-        console.log(882828);
         spinner.stop();
         if (err) {
             console.error(err.stack || err);
@@ -48,8 +46,8 @@ if (program.buildConf) {
         const info = stats.toJson();
     
         if (stats.hasErrors()) {
-        console.error(info.errors);
-        process.exit(1);
+            console.error(info.errors);
+            process.exit(1);
         }
     
         if (stats.hasWarnings()) {

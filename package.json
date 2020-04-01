@@ -81,5 +81,9 @@
     "webpack-merge": "^4.2.2",
     "whatwg-fetch": "^3.0.0",
     "workbox-webpack-plugin": "^4.3.1"
+  },
+  "devDependencies": {
+    "cache-loader": "^4.1.0",
+    "parallel-webpack": "^2.4.0"
   }
 }

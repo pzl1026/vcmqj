@@ -55,15 +55,15 @@ let plugins = [
         filename: '[name].css',
         chunkFilename: '[id].css',
     }),
-    new HappyPack({
-        id: 'babel',
-        threadPool: happyThreadPool,
-        loaders: [{
-            loader: 'babel-loader?cacheDirectory=true',
-        }, {
-            loader: 'cache-loader'
-        }]
-    }),
+    // new HappyPack({
+    //     id: 'babel',
+    //     threadPool: happyThreadPool,
+    //     loaders: [{
+    //         loader: 'babel-loader?cacheDirectory=true',
+    //     }, {
+    //         loader: 'cache-loader'
+    //     }]
+    // }),
 
     // new webpack.ProvidePlugin({
     //     _:'lodash',
@@ -99,8 +99,8 @@ module.exports = merge(vueConfigs, {
         rules: [
             {
                 test: /\.js$/,
-                // loader: 'babel-loader',
-                use: 'HappyPack/loader?id=babel',
+                loader: 'babel-loader',
+                // use: 'HappyPack/loader?id=babel',
                 exclude: /node_modules/,
                 include: [helper.resolve('src'), helper.resolve('node_modules/webpack-dev-server/client')]
             },
@@ -128,9 +128,12 @@ module.exports = merge(vueConfigs, {
           cacheGroups: {
             vendors: {
               test: /[\\/]node_modules[\\/]/,
-              priority: -10
+              priority: 10,
+              name: 'vendor',
+              chunks: 'initial'
             },
             default: {
+                chunks: 'initial',
                 minChunks: 4,
                 priority: -20,
                 reuseExistingChunk: true

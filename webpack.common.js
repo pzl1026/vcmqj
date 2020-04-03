@@ -32,14 +32,17 @@ module.exports = {
         rules: [
             {
                 test: /\.less$/,
-                // use: 'HappyPack/loader?id=less',
+                // use: 'happypack/loader?id=less',
                 // loader: 'less-loader', // compiles Less to CSS
                 use: [
                     {
-                      loader: 'style-loader',
+                        loader: 'style-loader',
                     },
                     {
-                      loader: 'css-loader',
+                        loader: 'css-loader',
+                    },
+                    {
+                        loader: 'cache-loader',
                     },
                     {
                       loader: 'less-loader',

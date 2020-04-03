@@ -29,6 +29,7 @@ if (program.devConf) {
 
 if (program.buildConf) {
     global.confFile = po.buildConf;
+    const configs2 = require('../webpack.dll.config');
     const configs = require('../webpack.prod');
     const spinner = ora('building for production...');
     spinner.start();

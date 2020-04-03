@@ -14,6 +14,8 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 //  const WorkboxPlugin = require('workbox-webpack-plugin'); //实现PWA
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
+const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 const HappyPack = require('happypack');
 const conf = require('./bin/conf');
 const helper = require('./helper');
@@ -64,6 +66,7 @@ let plugins = [
             loader: 'cache-loader'
         }]
     }),
+    new SpeedMeasurePlugin()
 
     // new webpack.ProvidePlugin({
     //     _:'lodash',
@@ -102,7 +105,7 @@ module.exports = merge(vueConfigs, {
                 // loader: 'babel-loader',
                 use: 'happypack/loader?id=babel',
                 exclude: /node_modules/,
-                // include: [helper.resolve('src'), helper.resolve('node_modules/webpack-dev-server/client')]
+                include: [helper.resolve('src'), helper.resolve('node_modules/webpack-dev-server/client')]
             },
         ],
     },
@@ -112,12 +115,12 @@ module.exports = merge(vueConfigs, {
             new TerserJSPlugin({
                 cache: true,
                 parallel: true,
-                sourceMap:true
+                sourceMap: false
             }),
             new OptimizeCSSAssetsPlugin({})
         ],
         splitChunks: {
-          chunks: 'async',
+          chunks: 'all',
           minSize: 30000,
           maxSize: 3000000,
           minChunks: Infinity,

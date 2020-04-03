@@ -37,9 +37,9 @@ let plugins = [
         allChunks: true
     }),
     new webpack.NamedModulesPlugin(),
-    new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify('production')
-    }),
+    // new webpack.DefinePlugin({
+    //     'process.env.NODE_ENV': JSON.stringify('production')
+    // }),
     new MiniCssExtractPlugin({
         filename: '[name].css',
         chunkFilename: '[id].css',

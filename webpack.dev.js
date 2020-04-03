@@ -20,11 +20,10 @@ module.exports = merge(vueConfigs, {
     optimization: {
         minimize: false,
         splitChunks: {
-            chunks: 'all',
             cacheGroups: {
                 commons: {
                     name: "commons",
-                    // chunks: "initial",
+                    chunks: "initial",
                     minChunks: 4
                 }
             }

@@ -2,7 +2,7 @@ const path = require("path");
 const CWD = process.cwd();
 
 function resolve (dir) {
-    return path.join(process.cwd(), dir);
+    return path.join(process.cwd(), dir || '');
 }
 
 function getPublicPathAndBase (outPublicPath) {

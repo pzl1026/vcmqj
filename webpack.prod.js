@@ -66,7 +66,13 @@ let plugins = [
             loader: 'cache-loader'
         }]
     }),
-    new SpeedMeasurePlugin()
+    // new SpeedMeasurePlugin(),
+    // new webpack.DllReferencePlugin({
+    //     context: helper.resolve(),
+    //     manifest: require('./manifest.json'),
+    //     scope: 'xyz',
+    //     sourceType: 'commonjs2'
+    // })
 
     // new webpack.ProvidePlugin({
     //     _:'lodash',

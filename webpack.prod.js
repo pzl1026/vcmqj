@@ -1,11 +1,9 @@
 const merge = require('webpack-merge');
 const path = require("path");
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const common = require('./webpack.common.js');
 const vueConfigs = require('./webpack.vue.config');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const webpack = require('webpack');
-const CopyPlugin = require('./plugins/copy');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -13,17 +11,11 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 //  const WorkboxPlugin = require('workbox-webpack-plugin'); //实现PWA
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
-const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
-const HappyPack = require('happypack');
 const conf = require('./bin/conf');
 const helper = require('./helper');
 const CWD = process.cwd();
 let path2 = helper.getPublicPathAndBase(conf.output.publicPath);
 let publicPath = path2.publicPath, basePath = path2.basePath;
-const os = require('os');
-const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 
 delete conf.nomocker;
 
@@ -44,11 +36,6 @@ let plugins = [
         filename: basePath + '/css/src/[name].[chunkhash].css',
         allChunks: true
     }),
-
-    // new CleanWebpackPlugin(),
-    // new UglifyJSPlugin({
-    //     sourceMap: true
-    // }),
     new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify('production')
@@ -56,37 +43,7 @@ let plugins = [
     new MiniCssExtractPlugin({
         filename: '[name].css',
         chunkFilename: '[id].css',
-    }),
-    new HappyPack({
-        id: 'babel',
-        threadPool: happyThreadPool,
-        loaders: [{
-            loader: 'babel-loader?cacheDirectory=true',
-        }, {
-            loader: 'cache-loader'
-        }]
-    }),
-    // new SpeedMeasurePlugin(),
-    // new webpack.DllReferencePlugin({
-    //     context: helper.resolve(),
-    //     manifest: require('./manifest.json'),
-    //     scope: 'xyz',
-    //     sourceType: 'commonjs2'
-    // })
-
-    // new webpack.ProvidePlugin({
-    //     _:'lodash',
-    //     'vue$': 'vue/dist/vue.esm.js',
-    //     'vue-router$': 'vue-router/dist/vue-router.js',
-    // })
-    // new BundleAnalyzerPlugin(),
-    // new WorkboxPlugin.GenerateSW({
-    //     // 这些选项帮助 ServiceWorkers 快速启用
-    //     // 不允许遗留任何“旧的” ServiceWorkers
-    //     clientsClaim: true,
-    //     skipWaiting: true
-    // })
-    
+    })
 ];
 
 module.exports = merge(vueConfigs, {
@@ -102,18 +59,6 @@ module.exports = merge(vueConfigs, {
         assetFilter: function(assetFilename) {
             return assetFilename.endsWith('.js');
         }
-    },
-
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                // loader: 'babel-loader',
-                use: 'happypack/loader?id=babel',
-                exclude: /node_modules/,
-                include: [helper.resolve('src'), helper.resolve('node_modules/webpack-dev-server/client')]
-            },
-        ],
     },
 
     optimization: {
@@ -151,12 +96,6 @@ module.exports = merge(vueConfigs, {
         }
     },
     plugins,
-    // output: {
-    //     path: path.join(CWD, './dist'),
-    //     publicPath: '//static.hanwin.com/',
-    //     filename: '[name].[chunkhash].js',
-    //     chunkFilename: '[id].[chunkhash].js' 
-    // },
  }, conf, {
     output: {
         path: path.join(CWD, './dist'),

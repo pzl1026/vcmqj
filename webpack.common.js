@@ -10,6 +10,9 @@ const CWD = process.cwd();
 const conf = require('./bin/conf');
 const helper = require('./helper');    
 const basePath = helper.getPublicPathAndBase(conf.output.publicPath).basePath;
+const HappyPack = require('happypack');
+const os = require('os');
+const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 
 module.exports = {
     entry: {
@@ -30,6 +33,13 @@ module.exports = {
     module: {
         noParse:/^(vue|vue-router|vuex|lodash|echarts)$/, // 忽略模块编译
         rules: [
+            {
+                test: /\.js$/,
+                // loader: 'babel-loader',
+                use: 'happypack/loader?id=babel',
+                exclude: /node_modules/,
+                include: [helper.resolve('src'), helper.resolve('node_modules/webpack-dev-server/client')]
+            },
             {
                 test: /\.less$/,
                 // use: 'happypack/loader?id=less',
@@ -62,41 +72,6 @@ module.exports = {
                     use: "css-loader"
                 }),
             },
-            // ...utils.styleLoaders({
-            //     sourceMap: true,
-            //     extract: true,
-            //     usePostCSS: true
-            // }),
-            // {
-            //     test: /\.js$/,
-            //     loader: 'babel-loader',
-            //     // use: 'HappyPack/loader?id=babel',
-            //     exclude: /node_modules/
-            // },
-            // {
-            //     test: /\.(png|jpg|gif|ico)$/,
-            //     loader: 'url-loader',
-            //     query: {
-            //         // 把较小的图片转换成base64的字符串内嵌在生成的js文件里
-            //         // esModule: false,
-            //         limit: 10000,
-            //         // 路径要与当前配置文件下的publicPath相结合
-            //         // name:'[name].[ext]?[hash:7]'
-            //         name: 'dist/king/static' + '/img/[name].[hash:7].[ext]'
-            //     }
-            // },
-            // // 加载图标
-            // {
-            //     test: /\.(eot|woff|woff2|svg|ttf)([\?]?.*)$/,
-            //     loader: 'file-loader',
-            //     query: {               
-            //         // 把较小的图标转换成base64的字符串内嵌在生成的js文件里    
-            //         limit: 10000,
-            //         name:'../fonts/[name].[ext]?[hash:7]',
-            //         prefix:'font'
-            //     }
-            // }, 
-
             {
                 test: /\.(png|jpe?g|gif|svg|ico)(\?.*)?$/,
                 loader: 'url-loader',
@@ -130,6 +105,15 @@ module.exports = {
             hash: true,
             title: 'Output Management',
             template: path.join(CWD, './index.html')
-        })
+        }),
+        new HappyPack({
+            id: 'babel',
+            threadPool: happyThreadPool,
+            loaders: [{
+                loader: 'babel-loader?cacheDirectory=true',
+            }, {
+                loader: 'cache-loader'
+            }]
+        }),
     ]
  };

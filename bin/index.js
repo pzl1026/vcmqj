@@ -11,20 +11,9 @@ const program = require('./program');
 const po = program.opts();
 const ora = require('ora');
 
-// console.log(program, 'program')
-
 if (program.devConf) {
     global.confFile = po.devConf;
     require('../server');
-    // webpack(require('../webpack.dll.config'),  (err, stats) => {
-    //     if (err) throw err;
-
-    //     if (stats.hasErrors()) {
-    //         console.log(chalk.red('Build failed with errors.\n'));
-    //         process.exit(1);
-    //     }
-    //     require('../server');
-    // });
 };
 
 if (program.buildConf) {

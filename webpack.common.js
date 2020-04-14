@@ -60,6 +60,7 @@ module.exports = {
                         lessOptions: {
                           strictMath: true,
                           noIeCompat: true,
+                            javascriptEnable: true
                         },
                       },
                     },

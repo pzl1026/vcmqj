@@ -11,8 +11,17 @@ const path = require('path');
 const helper = require('./helper');
 const conf = require('./bin/conf');
 const CWD = process.cwd();
+const domainsArgv = process.argv[process.argv.length - 1];
+const domains = conf.domains;
 
 delete conf.nomocker;
+delete conf.domains;
+
+// 处理多个环境请求域名不同时
+if (/:/.test(domainsArgv)) {
+    let domainsArgvArr = domainsArgv.split(':');
+    global.domain = domains[domainsArgvArr[domainsArgvArr.length - 1]];
+}
 
 module.exports = merge(vueConfigs, {
     devtool: 'cheap-eval-source-map',

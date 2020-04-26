@@ -8,7 +8,7 @@ const compiler = webpack(config);
 const conf = require('./bin/conf');
 const CWD= process.cwd();
 // const mockFiles = fs.readdirSync(path.resolve(CWD, './mock'));
-conf.devServer.proxy['/api'].target = global.domain;
+conf.devServer.proxy['/api'].target = global.domain ||conf.devServer.proxy['/api'].target;
 const options = {
     watchOptions: {
       ignored: /node_modules/,

@@ -23,7 +23,7 @@ module.exports = {
     cache: true,
     resolve: {
         modules: ['node_modules'],
-        extensions: [".js", ".jsx", '.vue'],
+        extensions: [".js", ".jsx", '.vue', '.ts', 'tsx'],
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
             'vue-router$': 'vue-router/dist/vue-router.js',
@@ -34,11 +34,21 @@ module.exports = {
         noParse:/^(vue|vue-router|vuex|lodash|echarts)$/, // 忽略模块编译
         rules: [
             {
-                test: /\.js$/,
+                test: /\.js|jsx$/,
                 // loader: 'babel-loader',
                 use: 'happypack/loader?id=babel',
                 exclude: /node_modules/,
                 include: [helper.resolve('src'), helper.resolve('node_modules/webpack-dev-server/client')]
+            },
+            {
+                test: /\.tsx?$/,
+                exclude: /node_modules/,
+                use: [
+                    'babel-loader', {
+                        loader: 'ts-loader',
+                        options: {appendTsxSuffixTo: [/\.vue$/]}
+                    }
+                ]
             },
             {
                 test: /\.less$/,
@@ -62,6 +72,7 @@ module.exports = {
                           noIeCompat: true,
                             javascriptEnable: true
                         },
+                        javascriptEnabled: true
                       },
                     },
                 ],
@@ -115,6 +126,6 @@ module.exports = {
             }, {
                 loader: 'cache-loader'
             }]
-        }),
+        })
     ]
  };

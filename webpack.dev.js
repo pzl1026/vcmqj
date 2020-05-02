@@ -57,6 +57,7 @@ module.exports = merge(vueConfigs, {
     output: {
         path: helper.resolve('_debug'),
         publicPath: '/',
-        filename: 'static/js/[name].[hash].js'
+        filename: 'static/js/[name].[hash].js',
+        globalObject: 'this'
     }
 });

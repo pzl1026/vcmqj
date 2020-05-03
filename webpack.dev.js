@@ -15,6 +15,7 @@ const conf = require('./bin/conf');
 const CWD = process.cwd();
 const domainsArgv = process.argv[process.argv.length - 1];
 const domains = conf.domains;
+global.nomocker = conf.nomocker;
 
 delete conf.nomocker;
 delete conf.domains;

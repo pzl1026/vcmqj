@@ -32,7 +32,7 @@ const options = {
     // progress: true,
     publicPath: '/',
     quiet: false,
-    ...(conf.nomocker ? 
+    ...(nomocker ? 
       conf.devServer : 
       {
         before: function(app){

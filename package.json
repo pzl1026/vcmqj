@@ -1,6 +1,6 @@
 {
   "name": "vcmqj",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "名气家项目前端构建",
   "main": "index.js",
   "scripts": {
@@ -29,7 +29,7 @@
     "url": "https://github.com/pzl1026/wp-vue/issues"
   },
   "bin": {
-    "vcmqj2": "bin/index.js"
+    "vcmqj": "bin/index.js"
   },
   "homepage": "https://github.com/pzl1026/wp-vue#readme",
   "dependencies": {

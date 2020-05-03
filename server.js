@@ -6,9 +6,13 @@ const fs = require("fs");
 const config = require('./webpack.dev.js');
 const compiler = webpack(config);
 const conf = require('./bin/conf');
+const helper = require('./helper');
+
 const CWD= process.cwd();
-// const mockFiles = fs.readdirSync(path.resolve(CWD, './mock'));
-conf.devServer.proxy['/api'].target = global.domain ||conf.devServer.proxy['/api'].target;
+const proxy = {
+  '/api': conf.devServer.proxy['/api'].target = global.domain ||conf.devServer.proxy['/api'].target
+}
+
 const options = {
     watchOptions: {
       ignored: /node_modules/,
@@ -28,7 +32,18 @@ const options = {
     // progress: true,
     publicPath: '/',
     quiet: false,
-    ...conf.devServer
+    ...(conf.nomocker ? 
+      conf.devServer : 
+      {
+        before: function(app){
+          apiMocker(app, helper.resolve(`conf/proxy/${global.confFile || 'dev'}.js`), {
+              proxy,
+              changeHost: true
+          });
+        }
+      })
+    // ...conf.devServer,
+
 };
 
 // Tell express to use the webpack-dev-middleware and use the webpack.config.js

@@ -10,7 +10,7 @@ const helper = require('./helper');
 
 const CWD= process.cwd();
 const proxy = {
-  '/api': conf.devServer.proxy['/api'].target = global.domain ||conf.devServer.proxy['/api'].target
+  '/daojia': conf.devServer.proxy['/daojia'].target = global.domain ||conf.devServer.proxy['/daojia'].target
 }
 
 const options = {

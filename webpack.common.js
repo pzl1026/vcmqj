@@ -127,10 +127,16 @@ module.exports = {
             id: 'babel',
             threadPool: happyThreadPool,
             loaders: [{
-                loader: 'babel-loader?cacheDirectory=true',
+                loader: 'babel-loader',
+                cacheDirectory: true,
+                options: {
+                    presets: ['@babel/preset-env'],
+                    plugins: ['@babel/transform-runtime']
+                  }
             }, {
                 loader: 'cache-loader'
-            }]
+            }],
+           
         })
     ]
  };

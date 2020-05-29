@@ -7,10 +7,17 @@ const config = require('./webpack.dev.js');
 const compiler = webpack(config);
 const conf = require('./bin/conf');
 const helper = require('./helper');
+const CWD = process.cwd();
 
-const CWD= process.cwd();
 const proxy = {
-  '/daojia': conf.devServer.proxy['/daojia'].target = global.domain ||conf.devServer.proxy['/daojia'].target
+  // '/daojia': conf.devServer.proxy['/daojia'].target = global.domain ||conf.devServer.proxy['/daojia'].target
+};
+
+if (global.domain) {
+  for (let i in conf.devServer.proxy) {
+    conf.devServer.proxy[i].target = global.domain[i];
+    proxy[i] = global.domain;
+  }
 }
 
 const options = {
@@ -37,13 +44,11 @@ const options = {
       {
         before: function(app){
           apiMocker(app, helper.resolve(`conf/proxy/${global.confFile || 'dev'}.js`), {
-              proxy,
-              changeHost: true
+            proxy,
+            changeHost: true
           });
         }
       })
-    // ...conf.devServer,
-
 };
 
 // Tell express to use the webpack-dev-middleware and use the webpack.config.js

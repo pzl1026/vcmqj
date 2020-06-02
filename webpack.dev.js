@@ -19,6 +19,7 @@ global.nomocker = conf.nomocker;
 
 delete conf.nomocker;
 delete conf.domains;
+delete conf.port;
 
 // 处理多个环境请求域名不同时
 if (/:/.test(domainsArgv)) {

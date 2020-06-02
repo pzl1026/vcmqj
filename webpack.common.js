@@ -128,11 +128,32 @@ module.exports = {
             threadPool: happyThreadPool,
             loaders: [{
                 loader: 'babel-loader',
-                cacheDirectory: true,
                 options: {
-                    presets: ['@babel/preset-env'],
-                    plugins: ['@babel/transform-runtime']
-                  }
+                    cacheDirectory: true,
+                    // presets: [  
+                    //      [
+                    //         "env",
+                    //         {
+                    //             "modules": false,
+                    //             "targets": {
+                    //                 "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
+                    //             }
+                    //         }
+                    //     ],
+                    //     "stage-2"
+                    // ],
+                    // plugins: ["transform-vue-jsx", "transform-runtime", "jsx-v-model"]
+                    // presets: ['@babel/preset-env'],
+                    // plugins: ['transform-runtime', 'transform-vue-jsx', 'jsx-v-model']
+                //     // presets: ['env']
+                //     plugins: [
+                //         ['@babel/plugin-proposal-decorators', {'legacy' : true}],
+                //         // '@babel/plugin-proposal-class-properties',
+                //         // '@babel/plugin-proposal-export-default-from',
+                //         // '@babel/plugin-transform-runtime',
+                //         // 'transform-vue-jsx'
+                //     ]
+                }
             }, {
                 loader: 'cache-loader'
             }],

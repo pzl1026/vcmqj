@@ -65,6 +65,10 @@ module.exports = {
                     },
                     {
                         loader: 'css-loader',
+                        options: {
+                            // modules: true,   //css module加入不现实
+                            // localIdentName: '[local]___[hash:base64:5]'
+                        }                
                     },
                     {
                         loader: 'cache-loader',
@@ -86,7 +90,10 @@ module.exports = {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
                     fallback: "style-loader",
-                    use: "css-loader"
+                    use: "css-loader",
+                    // options: {
+                    //     modules: true,
+                    // }
                 }),
             },
             {

@@ -8,7 +8,7 @@ const compiler = webpack(config);
 const conf = require('./bin/conf');
 const CWD= process.cwd();
 // const mockFiles = fs.readdirSync(path.resolve(CWD, './mock'));
-console.log(22244)
+console.log(2223344)
 const options = {
     watchOptions: {
       ignored: /node_modules/,

@@ -41,6 +41,10 @@ function createProject(frame) {
     spinner.text = 'Creating project directory...';
 
     download(tempDir, pa[pa.length - 1], function (err) {
+        if (err) {
+            throw err;
+            return;
+        }
         spinner.text = chalk.blue('Project directory created successfully');
         spinner.succeed();
         spinner.stop();

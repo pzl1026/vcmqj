@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pzl1026/wp-vue.git"
+    "url": "git+https://github.com/pzl1026/vcmqj.git"
   },
   "sideEffects": [
     "*.css"
@@ -26,12 +26,12 @@
   "author": "pzl",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/pzl1026/wp-vue/issues"
+    "url": "https://github.com/pzl1026/vcmqj/issues"
   },
   "bin": {
     "vcmqj": "bin/index.js"
   },
-  "homepage": "https://github.com/pzl1026/wp-vue#readme",
+  "homepage": "https://github.com/pzl1026/vcmqj#readme",
   "dependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.6",

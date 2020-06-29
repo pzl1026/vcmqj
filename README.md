@@ -127,6 +127,7 @@ vcmqj -d dev :test1  //即执行的是conf/env/dev.js下的test1代理
 // 生产环境
 vcmqj -b [conf/env文件夹js文件名]
 vcmqj -b production //即执行的是conf/env/production.js
+vcmqj -b production -a //开启分析
 ```
 
 ### 注意

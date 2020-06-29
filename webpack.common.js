@@ -1,4 +1,6 @@
 const path = require('path');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin;
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -14,6 +16,60 @@ const HappyPack = require('happypack');
 const os = require('os');
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 // const TestPlugin = require('./plugins/test');
+
+let plugins = [
+  // new TestPlugin(),
+  new HtmlWebpackPlugin({
+    hash: true,
+    title: 'Output Management',
+    template: path.join(CWD, './index.html'),
+  }),
+  new webpack.ProvidePlugin({
+    _: 'lodash',
+  }),
+  new HappyPack({
+    id: 'babel',
+    threadPool: happyThreadPool,
+    loaders: [
+      {
+        loader: 'babel-loader',
+        options: {
+          cacheDirectory: true,
+          // presets: [
+          //      [
+          //         "env",
+          //         {
+          //             "modules": false,
+          //             "targets": {
+          //                 "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
+          //             }
+          //         }
+          //     ],
+          //     "stage-2"
+          // ],
+          // plugins: ["transform-vue-jsx", "transform-runtime", "jsx-v-model"]
+          // presets: ['@babel/preset-env'],
+          // plugins: ['transform-runtime', 'transform-vue-jsx', 'jsx-v-model']
+          //     // presets: ['env']
+          //     plugins: [
+          //         ['@babel/plugin-proposal-decorators', {'legacy' : true}],
+          //         // '@babel/plugin-proposal-class-properties',
+          //         // '@babel/plugin-proposal-export-default-from',
+          //         // '@babel/plugin-transform-runtime',
+          //         // 'transform-vue-jsx'
+          //     ]
+        },
+      },
+      {
+        loader: 'cache-loader',
+      },
+    ],
+  }),
+];
+if (global.analyzer) {
+  console.log(BundleAnalyzerPlugin, 'webpack-bundle-analyzer');
+  plugins.push(new BundleAnalyzerPlugin());
+}
 
 module.exports = {
   entry: {
@@ -127,53 +183,5 @@ module.exports = {
     ],
   },
 
-  plugins: [
-    // new TestPlugin(),
-    new HtmlWebpackPlugin({
-      hash: true,
-      title: 'Output Management',
-      template: path.join(CWD, './index.html'),
-    }),
-    new webpack.ProvidePlugin({
-      _: 'lodash',
-    }),
-    new HappyPack({
-      id: 'babel',
-      threadPool: happyThreadPool,
-      loaders: [
-        {
-          loader: 'babel-loader',
-          options: {
-            cacheDirectory: true,
-            // presets: [
-            //      [
-            //         "env",
-            //         {
-            //             "modules": false,
-            //             "targets": {
-            //                 "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
-            //             }
-            //         }
-            //     ],
-            //     "stage-2"
-            // ],
-            // plugins: ["transform-vue-jsx", "transform-runtime", "jsx-v-model"]
-            // presets: ['@babel/preset-env'],
-            // plugins: ['transform-runtime', 'transform-vue-jsx', 'jsx-v-model']
-            //     // presets: ['env']
-            //     plugins: [
-            //         ['@babel/plugin-proposal-decorators', {'legacy' : true}],
-            //         // '@babel/plugin-proposal-class-properties',
-            //         // '@babel/plugin-proposal-export-default-from',
-            //         // '@babel/plugin-transform-runtime',
-            //         // 'transform-vue-jsx'
-            //     ]
-          },
-        },
-        {
-          loader: 'cache-loader',
-        },
-      ],
-    }),
-  ],
+  plugins,
 };

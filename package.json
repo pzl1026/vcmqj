@@ -29,10 +29,10 @@
     "url": "https://github.com/pzl1026/vcmqj/issues"
   },
   "bin": {
-    "vcmqj": "bin/index.js"
   },
   "homepage": "https://github.com/pzl1026/vcmqj#readme",
   "dependencies": {
+    "autoprefixer": "^9.8.5",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
@@ -65,6 +65,7 @@
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "ora": "^4.0.2",
     "portfinder": "^1.0.25",
+    "postcss-loader": "^3.0.0",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.0",
     "terser-webpack-plugin": "^2.1.3",

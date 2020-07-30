@@ -13,6 +13,7 @@ const conf = require('./bin/conf');
 const helper = require('./helper');
 const basePath = helper.getPublicPathAndBase(conf.output.publicPath).basePath;
 const HappyPack = require('happypack');
+// let autoprefixer = require('autoprefixer');
 const os = require('os');
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 // const TestPlugin = require('./plugins/test');
@@ -27,6 +28,7 @@ let plugins = [
   new webpack.ProvidePlugin({
     _: 'lodash',
   }),
+  // autoprefixer(),
   new HappyPack({
     id: 'babel',
     threadPool: happyThreadPool,
@@ -133,6 +135,21 @@ module.exports = {
             loader: 'cache-loader',
           },
           {
+            loader: 'postcss-loader',
+            options: {
+              plugins: [
+                require('autoprefixer')({
+                  browsers: [
+                    'last 10 Chrome versions',
+                    'Firefox >= 3.5',
+                    'Opera >= 11.5',
+                    'ie >8',
+                  ],
+                }),
+              ],
+            },
+          },
+          {
             loader: 'less-loader',
             options: {
               lessOptions: {
@@ -149,7 +166,7 @@ module.exports = {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: 'css-loader',
+          use: ['css-loader'],
           // options: {
           //     modules: true,
           // }

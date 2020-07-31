@@ -137,16 +137,7 @@ module.exports = {
           {
             loader: 'postcss-loader',
             options: {
-              plugins: [
-                require('autoprefixer')({
-                  browsers: [
-                    'last 10 Chrome versions',
-                    'Firefox >= 3.5',
-                    'Opera >= 11.5',
-                    'ie >8',
-                  ],
-                }),
-              ],
+              plugins: [require('autoprefixer')()],
             },
           },
           {

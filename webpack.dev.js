@@ -46,6 +46,24 @@ module.exports = merge(
         },
       },
     },
+    module: {
+      rules: [
+        {
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          enforce: 'pre',
+          exclude: /node_modules/,
+          //指定检查的目录
+          include: [helper.resolve('src')],
+          //eslint检查报告的格式规范
+          options: {
+            // cache: true,
+            formatter: require('eslint-friendly-formatter'),
+            // fix: true,
+          },
+        },
+      ],
+    },
     plugins: [
       new ExtractTextPlugin('styles.css'),
       new webpack.NamedModulesPlugin(),

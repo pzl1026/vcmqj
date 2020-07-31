@@ -1,6 +1,6 @@
 {
   "name": "vcmqj",
-  "version": "0.1.8",
+  "version": "0.1.10",
   "description": "名气家项目前端构建",
   "main": "index.js",
   "scripts": {
@@ -29,11 +29,13 @@
     "url": "https://github.com/pzl1026/vcmqj/issues"
   },
   "bin": {
+    "vcmqj": "bin/index.js"
   },
   "homepage": "https://github.com/pzl1026/vcmqj#readme",
   "dependencies": {
     "autoprefixer": "^9.8.5",
     "babel-core": "^6.26.3",
+    "babel-eslint": "^10.1.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "babel-plugin-transform-runtime": "^6.23.0",
@@ -50,6 +52,10 @@
     "copy-webpack-plugin": "^5.1.1",
     "css-loader": "^3.2.0",
     "download-git-repo": "^3.0.2",
+    "eslint": "^7.5.0",
+    "eslint-friendly-formatter": "^4.0.1",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-vue": "^6.2.2",
     "express": "^4.17.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^4.2.0",

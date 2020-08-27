@@ -1,6 +1,6 @@
 {
   "name": "vcmqj",
-  "version": "0.1.10",
+  "version": "0.1.12",
   "description": "名气家项目前端构建",
   "main": "index.js",
   "scripts": {
@@ -54,7 +54,7 @@
     "download-git-repo": "^3.0.2",
     "eslint": "^7.5.0",
     "eslint-friendly-formatter": "^4.0.1",
-    "eslint-loader": "^4.0.2",
+    "eslint-loader": "^2.1.2",
     "eslint-plugin-vue": "^6.2.2",
     "express": "^4.17.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",

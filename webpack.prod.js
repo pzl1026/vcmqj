@@ -51,7 +51,8 @@ let plugins = [
 let config = merge(
   vueConfigs,
   {
-    devtool: 'source-map',
+    // devtool: 'source-map',
+    devtool: 'eval-cheap-module-source-map',
     mode: 'production',
     performance: {
       hints: 'warning',
@@ -67,12 +68,12 @@ let config = merge(
 
     optimization: {
       minimizer: [
-        new TerserJSPlugin({
-          cache: true,
-          parallel: true,
-          sourceMap: false,
-        }),
-        new OptimizeCSSAssetsPlugin({}),
+        // new TerserJSPlugin({
+        //   cache: true,
+        //   parallel: true,
+        //   sourceMap: false,
+        // }),
+        // new OptimizeCSSAssetsPlugin({}),
       ],
       splitChunks: {
         chunks: 'all',

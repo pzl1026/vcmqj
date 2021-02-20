@@ -69,7 +69,7 @@ let plugins = [
   }),
 ];
 if (global.analyzer) {
-  console.log(BundleAnalyzerPlugin, 'webpack-bundle-analyzer');
+  // console.log(BundleAnalyzerPlugin, 'webpack-bundle-analyzer');
   plugins.push(new BundleAnalyzerPlugin());
 }
 

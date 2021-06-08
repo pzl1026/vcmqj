@@ -52,7 +52,7 @@ let config = merge(
   vueConfigs,
   {
     // devtool: 'source-map',
-    devtool: 'eval-cheap-module-source-map',
+    // devtool: 'eval-cheap-module-source-map',
     mode: 'production',
     performance: {
       hints: 'warning',
@@ -68,6 +68,7 @@ let config = merge(
 
     optimization: {
       minimizer: [
+        new TerserJSPlugin(),
         // new TerserJSPlugin({
         //   cache: true,
         //   parallel: true,
@@ -82,18 +83,22 @@ let config = merge(
         minChunks: Infinity,
         maxAsyncRequests: 5,
         maxInitialRequests: 3,
-        automaticNameDelimiter: '~',
-        name: 'manifest',
+        // automaticNameDelimiter: '~',
+        // name: 'manifest',
         cacheGroups: {
-          vendors: {
+          defaultVendors: {
             test: /[\\/]node_modules[\\/]/,
             priority: -10,
-            name: 'vendor',
-            //   chunks: 'initial'
+            reuseExistingChunk: true,
+          },
+          styles: {
+            name: 'styles',
+            test: /\.css$/,
+            chunks: 'all',
+            enforce: true,
           },
           default: {
-            // chunks: 'initial',
-            minChunks: 4,
+            minChunks: 2,
             priority: -20,
             reuseExistingChunk: true,
           },

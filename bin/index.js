@@ -18,6 +18,16 @@ global.analyzer = program.analyzer;
 //   const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 //   global.smp = new SpeedMeasurePlugin();
 // }
+let type = program.args[0];
+if (type == 'tmpServe') {
+  require('../prod/tmpServe');
+  return;
+}
+
+if (type == 'staticServe') {
+  require('../prod/staticServe');
+  return;
+}
 
 if (program.devConf) {
   global.confFile = po.devConf;

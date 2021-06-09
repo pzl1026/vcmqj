@@ -12,6 +12,7 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 //  const WorkboxPlugin = require('workbox-webpack-plugin'); //实现PWA
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 const conf = require('./bin/conf');
 const helper = require('./helper');
 const CWD = process.cwd();
@@ -46,13 +47,16 @@ let plugins = [
     filename: '[name].css',
     chunkFilename: '[id].css',
   }),
+  new CompressionPlugin({
+    algorithm: "gzip",
+  }),
 ];
 
 let config = merge(
   vueConfigs,
   {
     // devtool: 'source-map',
-    devtool: 'eval-cheap-module-source-map',
+    // devtool: 'eval-cheap-module-source-map',
     mode: 'production',
     performance: {
       hints: 'warning',
@@ -68,6 +72,7 @@ let config = merge(
 
     optimization: {
       minimizer: [
+        new TerserJSPlugin()
         // new TerserJSPlugin({
         //   cache: true,
         //   parallel: true,
@@ -106,7 +111,8 @@ let config = merge(
   {
     output: {
       path: path.join(CWD, './dist'),
-      publicPath,
+      // publicPath,
+      publicPath: '//localhost:8000/',
       filename: basePath + '/js/[name].[chunkhash].js',
       chunkFilename: basePath + '/js/[id].[chunkhash].js',
     },

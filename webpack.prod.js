@@ -12,7 +12,7 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 //  const WorkboxPlugin = require('workbox-webpack-plugin'); //实现PWA
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
+// const CompressionPlugin = require('compression-webpack-plugin');
 const conf = require('./bin/conf');
 const helper = require('./helper');
 const CWD = process.cwd();
@@ -47,9 +47,9 @@ let plugins = [
     filename: '[name].css',
     chunkFilename: '[id].css',
   }),
-  new CompressionPlugin({
-    algorithm: "gzip",
-  }),
+  // new CompressionPlugin({
+  //   algorithm: "gzip",
+  // }),
 ];
 
 let config = merge(

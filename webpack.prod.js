@@ -111,8 +111,8 @@ let config = merge(
   {
     output: {
       path: path.join(CWD, './dist'),
-      // publicPath,
-      publicPath: '//localhost:8000/',
+      publicPath,
+      // publicPath: '//localhost:8000/', //测试专用
       filename: basePath + '/js/[name].[chunkhash].js',
       chunkFilename: basePath + '/js/[id].[chunkhash].js',
     },

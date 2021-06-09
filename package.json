@@ -1,6 +1,6 @@
 {
   "name": "vcmqj",
-  "version": "0.1.20",
+  "version": "0.1.24",
   "description": "名气家项目前端构建",
   "main": "index.js",
   "scripts": {
@@ -49,6 +49,7 @@
     "chalk": "^2.4.2",
     "clean-webpack-plugin": "^3.0.0",
     "commander": "^4.0.0",
+    "compression-webpack-plugin": "6.1.1",
     "copy-webpack-plugin": "^5.1.1",
     "css-loader": "^3.2.0",
     "download-git-repo": "^3.0.2",
